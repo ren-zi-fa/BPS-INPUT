@@ -1,4 +1,5 @@
 import { Kecamatan, Menu } from "@/type";
+import { Label } from "recharts";
 
 const mainMenu: Menu[] = [
   { label: "STATISTIK", url: "/" },
@@ -9,6 +10,55 @@ const mainMenu: Menu[] = [
   { label: "VERTIKAL", url: "/vertikal" },
 ];
 
+const nagari = [
+  { key: 1, label: "Aia Bangih" },
+  { key: 2, label: "Desa Baru" },
+  { key: 3, label: "Batahan" },
+  { key: 4, label: "Desa Baru Barat" },
+  { key: 5, label: "Batahan Utara" },
+  { key: 6, label: "Batahan Tengah" },
+  { key: 7, label: "Batahan Barat" },
+  { key: 8, label: "Batahan Selatan" },
+  { key: 9, label: "Parik" },
+  { key: 10, label: "Koto Tangah" },
+  { key: 11, label: "Koto Tuo" },
+  { key: 12, label: "Koto Nan Duo" },
+  { key: 13, label: "Pamatang Panjang" },
+  { key: 14, label: "Ranah Koto Tinggi" },
+  { key: 15, label: "Sungai Aua" },
+  { key: 16, label: "Salingka Muaro" },
+  { key: 17, label: "Ranah Malintang" },
+  { key: 18, label: "Ranah Air Haji" },
+  { key: 19, label: "Kasik Putih Sungai Tanang" },
+  { key: 20, label: "Aua Serumpun" },
+  { key: 21, label: "Sikilang Sungai Aur Selatan" },
+  { key: 22, label: "Ujuang Gadiang" },
+  { key: 23, label: "Brastagi Ujuang Gadiang" },
+  { key: 24, label: "Tampus Damai Ujuang Gadiang" },
+  { key: 25, label: "Taluak Ambun Ujuang Gadiang" },
+  { key: 26, label: "Koto Gunung Ujuang Gadiang" },
+  { key: 27, label: "Koto Sawah Ujuang Gadiang" },
+  { key: 28, label: "Salido Saroha Ujuang Gadiang" },
+  { key: 29, label: "Kuamang Alai Ujuang Gadiang" },
+  { key: 30, label: "Situak Ujuang Gadiang" },
+  { key: 31, label: "Muaro Kiawai" },
+  { key: 32, label: "Rabi Jonggor" },
+  { key: 33, label: "Muaro Kiawai Barat" },
+  { key: 34, label: "Muaro Kiawai Hilir" },
+  { key: 35, label: "Seberang Kenaikan" },
+  { key: 36, label: "Bahoras" },
+  { key: 37, label: "Ranah Sungai Magelang" },
+  { key: 38, label: "Kajai" },
+  { key: 39, label: "Talu" },
+  { key: 40, label: "Sinuruik" },
+  { key: 41, label: "Simpang Timbo Abu Kajai" },
+  { key: 42, label: "Kajai Selatan" },
+  { key: 43, label: "Sungai Janiah Talu" },
+  { key: 44, label: "Tabek Sirah Talu" },
+  { key: 45, label: "Lingkuang Aua" },
+  { key: 46, label: "Aua Kuniang" },
+  { key: 47, label: "Aia Gadang" },
+];
 const kecamatan: Kecamatan[] = [
   {
     key: 1,
@@ -21,12 +71,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Sungai Beremas",
-    children: [
-      { key: 101, label: "Aia Bangih" },
-      { key: 102, label: "Aia Gadang" },
-      { key: 103, label: "Parit" },
-      { key: 104, label: "Sungai Beremas" },
-    ],
   },
   {
     key: 2,
@@ -39,12 +83,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Ranah Batahan",
-    children: [
-      { key: 201, label: "Batahan" },
-      { key: 202, label: "Ranah Batahan" },
-      { key: 203, label: "Silaping" },
-      { key: 204, label: "Ujung Gading Julu" },
-    ],
   },
   {
     key: 3,
@@ -57,12 +95,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Koto Balingka",
-    children: [
-      { key: 301, label: "Koto Balingka" },
-      { key: 302, label: "Parik" },
-      { key: 303, label: "Tuah Basamo" },
-      { key: 304, label: "Sasak" },
-    ],
   },
   {
     key: 4,
@@ -75,12 +107,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Sungai Aur",
-    children: [
-      { key: 401, label: "Sungai Aur" },
-      { key: 402, label: "Air Haji" },
-      { key: 403, label: "Rabi Jonggor" },
-      { key: 404, label: "Sungai Talang" },
-    ],
   },
   {
     key: 5,
@@ -93,12 +119,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Lembah Melintang",
-    children: [
-      { key: 501, label: "Ujung Gading" },
-      { key: 502, label: "Kinali Hilir" },
-      { key: 503, label: "Lingkuang Aua" },
-      { key: 504, label: "Lembah Melintang" },
-    ],
   },
   {
     key: 6,
@@ -111,12 +131,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Gunung Tuleh",
-    children: [
-      { key: 601, label: "Gunung Tuleh" },
-      { key: 602, label: "Suka Maju" },
-      { key: 603, label: "Bahoras" },
-      { key: 604, label: "Muaro Kiawai" },
-    ],
   },
   {
     key: 7,
@@ -129,12 +143,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Talamau",
-    children: [
-      { key: 701, label: "Talu" },
-      { key: 702, label: "Sinuruik" },
-      { key: 703, label: "Tabek Sirah" },
-      { key: 704, label: "Talamau" },
-    ],
   },
   {
     key: 8,
@@ -147,12 +155,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Pasaman",
-    children: [
-      { key: 801, label: "Simpang Ampek" },
-      { key: 802, label: "Lingkuang Aua Barat" },
-      { key: 803, label: "Lingkuang Aua Timur" },
-      { key: 804, label: "Jambak Selatan" },
-    ],
   },
   {
     key: 9,
@@ -165,12 +167,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Luhak Nan Duo",
-    children: [
-      { key: 901, label: "Luhak Nan Duo" },
-      { key: 902, label: "Sungai Talang" },
-      { key: 903, label: "Pematang Panjang" },
-      { key: 904, label: "Kapa" },
-    ],
   },
   {
     key: 10,
@@ -183,11 +179,6 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Sasak Ranah Pasisie",
-    children: [
-      { key: 1001, label: "Sasak" },
-      { key: 1002, label: "Ranah Pasisie" },
-      { key: 1003, label: "Padang Tujuh" },
-    ],
   },
   {
     key: 11,
@@ -200,13 +191,7 @@ const kecamatan: Kecamatan[] = [
     Ketinggian_Permukaan_Laut: "",
     luas_kecamatan: "",
     label: "Kinali",
-    children: [
-      { key: 1101, label: "Kinali" },
-      { key: 1102, label: "Anam Koto Utara" },
-      { key: 1103, label: "Anam Koto Selatan" },
-      { key: 1104, label: "Bandar Dalam" },
-    ],
   },
 ];
 
-export { kecamatan, mainMenu };
+export { kecamatan, mainMenu, nagari };

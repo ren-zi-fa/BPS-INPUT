@@ -20,13 +20,17 @@ import {
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
 
-import { kecamatan, mainMenu } from "@/constant/menu";
+import { kecamatan, mainMenu, nagari } from "@/constant/menu";
 import { cn } from "@/lib/utils";
 
 export function MainNavigation() {
   const [openKecamatan, setOpenKecamatan] = useState(false);
+  const [openNagari, setOpenNagari] = useState(false);
 
   const sortedKecamatan = [...kecamatan].sort((a, b) =>
+    a.label.localeCompare(b.label, "id")
+  );
+  const sortedNagari = [...nagari].sort((a, b) =>
     a.label.localeCompare(b.label, "id")
   );
 
@@ -51,7 +55,7 @@ export function MainNavigation() {
                     {menu.label}
                     <ChevronDown
                       className={cn(
-                        "h-4 w-4 transition-transform duration-200",
+                        "h-4 w-4 transition-transform",
                         openKecamatan && "rotate-180"
                       )}
                     />
@@ -59,32 +63,47 @@ export function MainNavigation() {
 
                   <DropdownMenuContent align="center" className="min-w-56">
                     {sortedKecamatan.map((item) => (
-                      <DropdownMenuSub key={item.key}>
-                        <DropdownMenuSubTrigger className="flex justify-between">
+                      <DropdownMenuItem key={item.key} asChild>
+                        <Link
+                          href={`/kecamatan/${item.label}`}
+                          className="w-full"
+                        >
                           {item.label}
-                        </DropdownMenuSubTrigger>
+                        </Link>
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </NavigationMenuItem>
+            ) : menu.label === "Nagari" ? (
+              <NavigationMenuItem key={menu.label}>
+                <DropdownMenu open={openNagari} onOpenChange={setOpenNagari}>
+                  <DropdownMenuTrigger
+                    className={cn(
+                      "flex items-center gap-1 rounded-full px-4 py-2",
+                      "text-sm font-semibold tracking-wider",
+                      "transition-colors hover:bg-muted hover:text-primary"
+                    )}
+                  >
+                    {menu.label}
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform",
+                        openNagari && "rotate-180"
+                      )}
+                    />
+                  </DropdownMenuTrigger>
 
-                        <DropdownMenuSubContent className="min-w-56">
-                          {item.children
-                            .slice()
-                            .sort((a, b) =>
-                              a.label.localeCompare(b.label, "id")
-                            )
-                            .map((nagari) => (
-                              <DropdownMenuItem key={nagari.key} asChild>
-                                <Link
-                                  href={{
-                                    pathname: `/nagari/${nagari.label}`,
-                                    query: { kecamatan: item.label },
-                                  }}
-                                  className="w-full"
-                                >
-                                  {nagari.label}
-                                </Link>
-                              </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuSubContent>
-                      </DropdownMenuSub>
+                  <DropdownMenuContent
+                    align="center"
+                    className="min-w-56 max-h-80 overflow-y-auto"
+                  >
+                    {sortedNagari.map((item) => (
+                      <DropdownMenuItem key={item.key} asChild>
+                        <Link href={`/nagari/${item.label}`} className="w-full">
+                          {item.label}
+                        </Link>
+                      </DropdownMenuItem>
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>

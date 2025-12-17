@@ -20,5 +20,4 @@ export type Kecamatan = {
   batas_kecamatan?: BatasKec;
   Ketinggian_Permukaan_Laut?: string;
   label: string;
-  children: Nagari[];
 };
