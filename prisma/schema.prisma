@@ -29,7 +29,7 @@ model BpjsKecamatan {
   kelasI      Int
   kelasII     Int
   kelasIII    Int
-  jumlah      Int
+  jumlah      Int?
 
   @@unique([tahun, kecamatan])
   @@map("bpjs_kecamatan")
@@ -43,7 +43,7 @@ model BpjsKelompokKecamatan {
 
   pbi       Int
   nonPbi    Int
-  jumlah    Int
+  jumlah    Int?
 
   @@unique([tahun, kecamatan])
   @@map("bpjs_kelompok_kecamatan")

@@ -4,14 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KecamatanSelect } from "@/components/common/SelectKecamatan";
 import { useState } from "react";
-import { KecamatanCheckbox } from "@/components/common/Checklist";
+import { KecamatanCheckbox } from "@/components/common/ChecklistKecamatan";
 
 export default function BpjsKelompokKecamatanStats() {
   const [form, setForm] = useState({
     kecamatan: "",
-    penerima_bantuan_iuran: "",
-    bukan_penerima_bantuan_uran: "",
-    jumlah: "",
+    penerima_bantuan_iuran: 0,
+    bukan_penerima_bantuan_uran: 0,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,21 +32,16 @@ export default function BpjsKelompokKecamatanStats() {
 
     setForm({
       kecamatan: "",
-      penerima_bantuan_iuran: "",
-      bukan_penerima_bantuan_uran: "",
-
-      jumlah: "",
+      penerima_bantuan_iuran: 0,
+      bukan_penerima_bantuan_uran: 0,
     });
   };
   return (
     <>
       <div className="flex gap-3 flex-col md:flex-row border-2 space-x-2 rounded-sm p-4 ">
         <KecamatanCheckbox />
-        <div className="space-y-4">
-          <p className="text-sm capitalize">
-            Jumlah Peserta BPJS Kesehatan Menurut Kelompok dan Kecamatan di
-            Kabupaten Pasaman Barat
-          </p>
+        <div className="space-y-4 w-full">
+          <p className="text-sm capitalize">4.2.16 </p>
           <div>
             <KecamatanSelect
               value={form.kecamatan}
@@ -57,7 +51,7 @@ export default function BpjsKelompokKecamatanStats() {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4">
+          <div className="flex flex-col">
             <div>
               <Label className="my-3">Penerima Bantuan Iuran (PBI)</Label>
               <Input
@@ -69,8 +63,7 @@ export default function BpjsKelompokKecamatanStats() {
             </div>
             <div>
               <Label className="my-3">
-                umlah Peserta BPJS Kesehatan Menurut Kelompok dan Kecamatan di
-                Kabupaten Pasaman Barat
+                Bukan Penerima Bantuan Iuran (Non PBI)
               </Label>
               <Input
                 type="number"
@@ -79,17 +72,6 @@ export default function BpjsKelompokKecamatanStats() {
                 onChange={handleChange}
               />
             </div>
-          </div>
-
-          <div>
-            <Label className="my-3">Jumlah</Label>
-            <Input
-              type="number"
-              name="jumlah"
-              disabled
-              value={form.jumlah}
-              onChange={handleChange}
-            />
           </div>
 
           <Button onClick={handleSubmit} className="w-full">

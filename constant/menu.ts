@@ -59,6 +59,22 @@ const nagari = [
   { key: 46, label: "Aua Kuniang" },
   { key: 47, label: "Aia Gadang" },
 ];
+
+const bulan = [
+  { key: 1, label: "Januari" },
+  { key: 2, label: "Februari" },
+  { key: 3, label: "Maret" },
+  { key: 4, label: "April" },
+  { key: 5, label: "Mei" },
+  { key: 6, label: "Juni" },
+  { key: 7, label: "Juli" },
+  { key: 8, label: "Agustus" },
+  { key: 9, label: "September" },
+  { key: 10, label: "Oktober" },
+  { key: 11, label: "November" },
+  { key: 12, label: "Desember" },
+];
+
 const kecamatan: Kecamatan[] = [
   {
     key: 1,
@@ -118,4 +134,24 @@ const kecamatan: Kecamatan[] = [
   },
 ];
 
-export { kecamatan, mainMenu, nagari };
+const fasilitas = [
+  { key: 1, label: "Ruang Rawat Inap" },
+  { key: 2, label: "Tempat Tidur Tersedia" },
+  { key: 3, label: "Ruang Perawatan Bersalin" },
+  { key: 4, label: "Ruangan OK" },
+  { key: 5, label: "Poliklinik Kebidanan" },
+  { key: 6, label: "Poliklinik Bedah" },
+  { key: 7, label: "IGD" },
+  { key: 8, label: "Poliklinik Gigi" },
+  { key: 9, label: "Poliklinik Umum" },
+  { key: 10, label: "Poliklinik Anak" },
+  { key: 11, label: "Apotik" },
+  { key: 12, label: "Ruang Rontgen" },
+  { key: 13, label: "Ruang Laboratorium" },
+  { key: 14, label: "Ruangan Gizi" },
+  { key: 15, label: "Poliklinik Mata" },
+  { key: 16, label: "Bank Darah / BDRS" },
+  { key: 17, label: "Poliklinik Fisioterapi" },
+];
+
+export { kecamatan, mainMenu, nagari, bulan, fasilitas };

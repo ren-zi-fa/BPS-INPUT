@@ -2,16 +2,18 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { KecamatanSelect } from "@/components/common/SelectKecamatan";
 import { useState } from "react";
-import { KecamatanCheckbox } from "@/components/common/ChecklistKecamatan";
+import { SelectFasilitas } from "@/components/common/SelectFasilitas";
+import { FasilitasCheckbox } from "@/components/common/ChecklistFasilitas";
 
-export default function BpjsKecamatanStats() {
+export default function JumlahFasilitas() {
   const [form, setForm] = useState({
-    kecamatan: "",
-    kelas1: "",
-    kelas2: "",
-    kelas3: "",
+    dua_ribu_20: "",
+    dua_ribu_21: "",
+    dua_ribu_22: "",
+    dua_ribu_23: "",
+    dua_ribu_24: "",
+    fasilitas: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,52 +34,75 @@ export default function BpjsKecamatanStats() {
     // });
 
     setForm({
-      kecamatan: "",
-      kelas1: "",
-      kelas2: "",
-      kelas3: "",
+      dua_ribu_20: "",
+      dua_ribu_21: "",
+      dua_ribu_22: "",
+      dua_ribu_23: "",
+      dua_ribu_24: "",
+      fasilitas: "",
     });
   };
+
   return (
     <>
+      {/* Lanjutan Tabel 4.2.15 */}
+
       <div className="flex gap-3 flex-col md:flex-row border-2 space-x-2 rounded-sm p-4 ">
-        <KecamatanCheckbox />
-        <div className="space-y-4 w-full">
-          <p className="text-sm capitalize">Tabel 4.2.15</p>
+        <FasilitasCheckbox />
+        <div className="space-y-4">
           <div>
-            <KecamatanSelect
-              value={form.kecamatan}
+            <SelectFasilitas
+              value={form.fasilitas}
               onChange={(val) =>
-                setForm((prev) => ({ ...prev, kecamatan: val }))
+                setForm((prev) => ({ ...prev, fasilitas: val }))
               }
             />
           </div>
 
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <Label className="my-3">Kelas I</Label>
+              <Label className="my-3">2020</Label>
               <Input
                 type="number"
-                name="kelas1"
-                value={form.kelas1}
+                name="dua_ribu_20"
+                value={form.dua_ribu_20}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div>
+              <Label className="my-3">2021</Label>
+              <Input
+                type="number"
+                name="dua_ribu_21"
+                value={form.dua_ribu_21}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <Label className="my-3">Kelas II</Label>
+              <Label className="my-3">2022</Label>
               <Input
                 type="number"
-                name="kelas2"
-                value={form.kelas2}
+                name="dua_ribu_22"
+                value={form.dua_ribu_22}
                 onChange={handleChange}
               />
             </div>
             <div>
-              <Label className="my-3">Kelas III</Label>
+              <Label className="my-3">2023</Label>
               <Input
                 type="number"
-                name="kelas3"
-                value={form.kelas3}
+                name="dua_ribu_23"
+                value={form.dua_ribu_23}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <Label className="my-3">2024</Label>
+              <Input
+                type="number"
+                name="dua_ribu_24"
+                value={form.dua_ribu_24}
                 onChange={handleChange}
               />
             </div>

@@ -2,9 +2,8 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import BpjsForm from "./_components/BPJSForm/BPJSform";
-import PasienRawatJalan from "./_components/PasienRawatJalan";
-import { KecamatanCheckbox } from "@/components/common/Checklist";
+import IndexFormBPJS from "./_components/BPJSForm/IndexForm";
+import IndexFormIbnuSina from "./_components/IbnuSinaForm/IndexForm";
 
 export default function BUMNdanSwasta() {
   const router = useRouter();
@@ -29,7 +28,6 @@ export default function BUMNdanSwasta() {
           Input dan pengelolaan data BPJS serta pasien rawat jalan
         </p>
       </header>
-
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={onTabChange}>
         <TabsList className="grid w-full grid-cols-2">
@@ -38,16 +36,14 @@ export default function BUMNdanSwasta() {
             Pasien Rawat Jalan Ibnu Sina
           </TabsTrigger>
         </TabsList>
-
         <TabsContent value="bpjs" className="mt-6">
           <div className="rounded-lg  bg-background p-6 ">
-            <BpjsForm />
+            <IndexFormBPJS />
           </div>
         </TabsContent>
-
         <TabsContent value="rawat-jalan" className="mt-6">
           <div className="rounded-lg  bg-background p-6 ">
-            <PasienRawatJalan />
+            <IndexFormIbnuSina />
           </div>
         </TabsContent>
       </Tabs>
