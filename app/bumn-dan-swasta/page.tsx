@@ -2,8 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import BpjsForm from "./_components/BPJSform";
+import BpjsForm from "./_components/BPJSForm/BPJSform";
 import PasienRawatJalan from "./_components/PasienRawatJalan";
+import { KecamatanCheckbox } from "@/components/common/Checklist";
 
 export default function BUMNdanSwasta() {
   const router = useRouter();
@@ -39,13 +40,14 @@ export default function BUMNdanSwasta() {
         </TabsList>
 
         <TabsContent value="bpjs" className="mt-6">
-          <div className="rounded-lg border bg-background p-6 shadow-sm">
+          <div className="rounded-lg  bg-background flex flex-row p-6 ">
+            <KecamatanCheckbox />
             <BpjsForm />
           </div>
         </TabsContent>
 
         <TabsContent value="rawat-jalan" className="mt-6">
-          <div className="rounded-lg border bg-background p-6 shadow-sm">
+          <div className="rounded-lg  bg-background p-6 ">
             <PasienRawatJalan />
           </div>
         </TabsContent>

@@ -1,132 +1,169 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
+import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 
-const BULAN = [
-  "Januari",
-  "Februari",
-  "Maret",
-  "April",
-  "Mei",
-  "Juni",
-  "Juli",
-  "Agustus",
-  "September",
-  "Oktober",
-  "November",
-  "Desember",
-];
-
-export default function PasienRawatJalan() {
-  const [form, setForm] = useState({
-    bulan: "",
-    bedah: "",
-    kesehatan_anak: "",
-    poli_kebidanan: "",
-    gigi: "",
-    umum: "",
+export default function DataEntryForm() {
+  const [formData, setFormData] = useState({
+    clientName: "",
+    email: "",
+    password: "",
+    dob: "",
+    notes: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error" | "info";
+  } | null>(null);
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const submit = async () => {
-    await fetch("URL_WEB_APP_GOOGLE_SCRIPT", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        bulan: form.bulan,
-        bedah: Number(form.bedah),
-        kesehatan_anak: Number(form.kesehatan_anak),
-        poli_kebidanan: Number(form.poli_kebidanan),
-        gigi: Number(form.gigi),
-        umum: Number(form.umum),
-      }),
-    });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ text: "Submitting...", type: "info" });
 
-    setForm({
-      bulan: "",
-      bedah: "",
-      kesehatan_anak: "",
-      poli_kebidanan: "",
-      gigi: "",
-      umum: "",
-    });
+    try {
+      const res = await fetch("/api/bumn/save", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.status === "success") {
+        setMessage({ text: data.message, type: "success" });
+        setFormData({
+          clientName: "",
+          email: "",
+          password: "",
+          dob: "",
+          notes: "",
+        });
+      } else {
+        throw new Error(data.message || "Submission failed");
+      }
+    } catch (err: any) {
+      setMessage({ text: "Error: " + err.message, type: "error" });
+    } finally {
+      setLoading(false);
+      setTimeout(() => setMessage(null), 4000);
+    }
   };
 
   return (
-    <div className="space-y-4 max-w-2xl mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-xl mx-auto p-4">
       <div>
-        <Label className="my-3">Bulan</Label>
+        <Label htmlFor="clientName">Client Name</Label>
         <Input
-          list="bulan-list"
-          name="bulan"
-          value={form.bulan}
-          onChange={handleChange}
-          placeholder="Pilih / ketik bulan"
+          id="clientName"
+          name="clientName"
+          value={formData.clientName}
+          onChange={handleInputChange}
+          placeholder="Your Client Name"
+          required
         />
-        <datalist id="bulan-list">
-          {BULAN.map((b) => (
-            <option key={b} value={b} />
-          ))}
-        </datalist>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <div>
-          <Label className="my-3">Bedah</Label>
-          <Input
-            type="number"
-            name="bedah"
-            value={form.bedah}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Label className="my-3">Kesehatan Anak</Label>
-          <Input
-            type="number"
-            name="kesehatan_anak"
-            value={form.kesehatan_anak}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Label className="my-3">Poli Kebidanan</Label>
-          <Input
-            type="number"
-            name="poli_kebidanan"
-            value={form.poli_kebidanan}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Label className="my-3">Gigi</Label>
-          <Input
-            type="number"
-            name="gigi"
-            value={form.gigi}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <Label className="my-3">Umum</Label>
-          <Input
-            type="number"
-            name="umum"
-            value={form.umum}
-            onChange={handleChange}
-          />
-        </div>
+      <div>
+        <Label htmlFor="email">Email</Label>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          placeholder="Your Email"
+          required
+        />
       </div>
 
-      <Button onClick={submit} className="w-full">
-        Simpan ke Spreadsheet
-      </Button>
-    </div>
+      <div>
+        <Label htmlFor="password">Password</Label>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleInputChange}
+          placeholder="Your Password"
+          required
+        />
+      </div>
+
+      <div>
+        <Label htmlFor="dob">Date of Birth</Label>
+        <Input
+          id="dob"
+          name="dob"
+          type="date"
+          value={formData.dob}
+          onChange={handleInputChange}
+          required
+        />
+      </div>
+      <div>
+        <Label htmlFor="notes">Additional Information</Label>
+        <Textarea
+          id="notes"
+          name="notes"
+          value={formData.notes}
+          onChange={handleInputChange}
+          placeholder="Any additional information"
+        />
+      </div>
+
+      <div className="flex gap-4">
+        <Button type="submit" disabled={loading}>
+          {loading ? "Submitting..." : "Submit"}
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={() => {
+            setFormData({
+              clientName: "",
+              email: "",
+              password: "",
+              dob: "",
+              notes: "",
+            });
+
+            setMessage(null);
+          }}
+        >
+          Cancel
+        </Button>
+      </div>
+
+      {message && (
+        <div
+          className={cn(
+            "p-2 rounded mt-2 font-semibold",
+            message.type === "success" ? "bg-green-500 text-white" : "",
+            message.type === "error" ? "bg-red-500 text-white" : "",
+            message.type === "info" ? "bg-yellow-200 text-black" : ""
+          )}
+        >
+          {message.text}
+        </div>
+      )}
+    </form>
   );
 }

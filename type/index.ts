@@ -17,7 +17,7 @@ export interface BatasKec {
 export type Kecamatan = {
   key: number;
   luas_kecamatan?: string;
-  batas_kecamatan?: BatasKec;
-  Ketinggian_Permukaan_Laut?: string;
+  // batas_kecamatan?: BatasKec;
+  // Ketinggian_Permukaan_Laut?: string;
   label: string;
 };

@@ -1,0 +1,30 @@
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { kecamatan as KECAMATAN } from "@/constant/menu";
+
+export function KecamatanCheckbox() {
+  const toggleKecamatan = (label: string) => {};
+
+  return (
+    <div>
+      <Label className="mb-3 tracking-wider block text-green-500">
+        Data Kecamatan <br  /> Yang Sudah Diinputkan
+      </Label>
+
+      <div className="flex flex-col gap-3">
+        {KECAMATAN.map((kec) => (
+          <div key={kec.key} className="flex items-center gap-2">
+            <Checkbox
+              disabled
+              id={`kec-${kec.key}`}
+              onCheckedChange={() => toggleKecamatan(kec.label)}
+            />
+            <Label htmlFor={`kec-${kec.key}`} className="cursor-pointer">
+              {kec.label}
+            </Label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}

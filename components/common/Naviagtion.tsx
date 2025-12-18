@@ -19,6 +19,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu";
+import { usePathname } from "next/navigation";
 
 import { kecamatan, mainMenu, nagari } from "@/constant/menu";
 import { cn } from "@/lib/utils";
@@ -26,6 +27,11 @@ import { cn } from "@/lib/utils";
 export function MainNavigation() {
   const [openKecamatan, setOpenKecamatan] = useState(false);
   const [openNagari, setOpenNagari] = useState(false);
+  const pathname = usePathname();
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
   const sortedKecamatan = [...kecamatan].sort((a, b) =>
     a.label.localeCompare(b.label, "id")
@@ -48,11 +54,13 @@ export function MainNavigation() {
                   <DropdownMenuTrigger
                     className={cn(
                       "flex items-center gap-1 rounded-full px-4 py-2",
-                      "text-sm font-semibold tracking-wider",
-                      "transition-colors hover:bg-muted hover:text-primary"
+                      "text-sm font-semibold tracking-wider transition-colors",
+                      pathname.startsWith("/kecamatan")
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-muted hover:text-primary"
                     )}
                   >
-                    {menu.label}
+                    Kecamatan
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform",
@@ -62,16 +70,25 @@ export function MainNavigation() {
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent align="center" className="min-w-56">
-                    {sortedKecamatan.map((item) => (
-                      <DropdownMenuItem key={item.key} asChild>
-                        <Link
-                          href={`/kecamatan/${item.label}`}
-                          className="w-full"
-                        >
-                          {item.label}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
+                    {sortedKecamatan.map((item) => {
+                      const href = `/kecamatan/${item.label}`;
+
+                      return (
+                        <DropdownMenuItem key={item.key} asChild>
+                          <Link
+                            href={href}
+                            className={cn(
+                              "w-full px-4 py-2 text-sm transition-colors",
+                              pathname === href
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-muted hover:text-primary"
+                            )}
+                          >
+                            {item.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </NavigationMenuItem>
@@ -81,11 +98,13 @@ export function MainNavigation() {
                   <DropdownMenuTrigger
                     className={cn(
                       "flex items-center gap-1 rounded-full px-4 py-2",
-                      "text-sm font-semibold tracking-wider",
-                      "transition-colors hover:bg-muted hover:text-primary"
+                      "text-sm font-semibold tracking-wider transition-colors",
+                      pathname.startsWith("/nagari")
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-muted hover:text-primary"
                     )}
                   >
-                    {menu.label}
+                    Nagari
                     <ChevronDown
                       className={cn(
                         "h-4 w-4 transition-transform",
@@ -98,13 +117,25 @@ export function MainNavigation() {
                     align="center"
                     className="min-w-56 max-h-80 overflow-y-auto"
                   >
-                    {sortedNagari.map((item) => (
-                      <DropdownMenuItem key={item.key} asChild>
-                        <Link href={`/nagari/${item.label}`} className="w-full">
-                          {item.label}
-                        </Link>
-                      </DropdownMenuItem>
-                    ))}
+                    {sortedNagari.map((item) => {
+                      const href = `/nagari/${item.label}`;
+
+                      return (
+                        <DropdownMenuItem key={item.key} asChild>
+                          <Link
+                            href={href}
+                            className={cn(
+                              "w-full px-4 py-2 text-sm transition-colors",
+                              pathname === href
+                                ? "bg-primary text-primary-foreground"
+                                : "hover:bg-muted hover:text-primary"
+                            )}
+                          >
+                            {item.label}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuContent>
                 </DropdownMenu>
               </NavigationMenuItem>
@@ -114,8 +145,10 @@ export function MainNavigation() {
                   href={menu.url}
                   className={cn(
                     "rounded-full px-4 py-2",
-                    "text-sm font-semibold tracking-wider",
-                    "transition-colors hover:bg-muted hover:text-primary"
+                    "text-sm font-semibold tracking-wider transition-colors",
+                    isActive(menu.url)
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-muted hover:text-primary"
                   )}
                 >
                   {menu.label}

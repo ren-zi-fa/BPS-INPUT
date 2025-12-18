@@ -1,11 +1,10 @@
-"use client";
-
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { KecamatanSelect } from "@/components/common/SelectKecamatan";
+import { useState } from "react";
 
-export default function BpjsForm() {
+export default function BpjsKelompokKecamatanStats() {
   const [form, setForm] = useState({
     kecamatan: "",
     kelas1: "",
@@ -19,17 +18,17 @@ export default function BpjsForm() {
   };
 
   const handleSubmit = async () => {
-    await fetch("URL_WEB_APP_GOOGLE_SCRIPT", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        kelas1: Number(form.kelas1),
-        kelas2: Number(form.kelas2),
-        kelas3: Number(form.kelas3),
-        jumlah: Number(form.jumlah),
-      }),
-    });
+    // await fetch("", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     ...form,
+    //     kelas1: Number(form.kelas1),
+    //     kelas2: Number(form.kelas2),
+    //     kelas3: Number(form.kelas3),
+    //     jumlah: Number(form.jumlah),
+    //   }),
+    // });
 
     setForm({
       kecamatan: "",
@@ -39,15 +38,16 @@ export default function BpjsForm() {
       jumlah: "",
     });
   };
-
   return (
-    <div className="space-y-4 max-w-xl mx-auto">
+    <>
+      <p className="text-sm capitalize">
+        Jumlah Peserta BPJS Kesehatan dan Rata-rata Iuran Per Peserta Menurut
+        Kecamatan di Kabupaten Pasaman Barat,
+      </p>
       <div>
-        <Label className="my-3">Kecamatan</Label>
-        <Input
-          name="kecamatan"
+        <KecamatanSelect
           value={form.kecamatan}
-          onChange={handleChange}
+          onChange={(val) => setForm((prev) => ({ ...prev, kecamatan: val }))}
         />
       </div>
 
@@ -92,8 +92,8 @@ export default function BpjsForm() {
       </div>
 
       <Button onClick={handleSubmit} className="w-full">
-        Simpan ke Spreadsheet
+        Simpan Data
       </Button>
-    </div>
+    </>
   );
 }
