@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KecamatanSelect } from "@/components/common/SelectKecamatan";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { KecamatanCheckbox } from "@/components/common/ChecklistKecamatan";
-
-export default function BpjsKecamatanStats() {
+type Props = {
+  kecamatanSubmitted: string[];
+};
+export default function BpjsKecamatanStats({ kecamatanSubmitted }: Props) {
   const [form, setForm] = useState({
     kecamatan: "",
     kelas1: "",
@@ -45,6 +47,7 @@ export default function BpjsKecamatanStats() {
           <p className="text-sm capitalize">Tabel 4.2.15</p>
           <div>
             <KecamatanSelect
+              submittedItem={kecamatanSubmitted}
               value={form.kecamatan}
               onChange={(val) =>
                 setForm((prev) => ({ ...prev, kecamatan: val }))

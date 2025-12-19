@@ -1,7 +1,6 @@
 import { ChartBarInteractive } from "@/components/common/Chart";
 import { ChartMini } from "@/components/common/ChartMini";
 import { ChartMini2 } from "@/components/common/ChartMini2";
-import Image from "next/image";
 
 export default function Home() {
   return (

@@ -1,5 +1,7 @@
+"use client";
+
 import { useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,13 +20,17 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { kecamatan as KECAMATAN } from "@/constant/menu";
 
+type Props = {
+  value: string;
+  onChange: (val: string) => void;
+  submittedItem?: string[];
+};
+
 export function KecamatanSelect({
   value,
   onChange,
-}: {
-  value: string;
-  onChange: (val: string) => void;
-}) {
+  submittedItem = [],
+}: Props) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -38,10 +44,8 @@ export function KecamatanSelect({
             role="combobox"
             className="w-full justify-between"
           >
-            {value
-              ? KECAMATAN.find((k) => k.label === value)?.label
-              : "Pilih kecamatan"}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            {value || "Pilih kecamatan"}
+            <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
 
@@ -49,25 +53,39 @@ export function KecamatanSelect({
           <Command>
             <CommandInput placeholder="Cari kecamatan..." />
             <CommandEmpty>Tidak ditemukan.</CommandEmpty>
+
             <CommandGroup>
-              {KECAMATAN.map((kec) => (
-                <CommandItem
-                  key={kec.key}
-                  value={kec.label}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
+              {KECAMATAN.map((kec) => {
+                const isSubmitted = submittedItem.includes(kec.label);
+
+                return (
+                  <CommandItem
+                    key={kec.key}
+                    value={kec.label}
+                    disabled={isSubmitted}
+                    onSelect={(val) => {
+                      if (isSubmitted) return;
+                      onChange(val);
+                      setOpen(false);
+                    }}
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      value === kec.label ? "opacity-100" : "opacity-0"
+                      isSubmitted && "opacity-50 cursor-not-allowed"
                     )}
-                  />
-                  {kec.label}
-                </CommandItem>
-              ))}
+                  >
+                    {isSubmitted ? (
+                      <Check className="mr-2 h-4 w-4 text-green-500" />
+                    ) : (
+                      <X
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === kec.label ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                    )}
+                    {kec.label}
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           </Command>
         </PopoverContent>

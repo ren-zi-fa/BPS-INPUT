@@ -1,6 +1,14 @@
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET() {
+  try {
+    const data = (await prisma.bpjsKecamatan.findMany()).map(
+      (item) => item.kecamatan
+    );
+    return NextResponse.json({ message: "Data kecamatan ", data: data });
+  } catch (error) {}
+}
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -22,7 +30,6 @@ export async function POST(req: NextRequest) {
 
     const data = await prisma.bpjsKecamatan.create({
       data: {
-        tahun: new Date().getFullYear(), // atau hardcode: 2024
         kecamatan,
         kelasI,
         kelasII,
