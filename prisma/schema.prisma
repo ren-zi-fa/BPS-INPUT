@@ -6,17 +6,12 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  url=  env("DATABASE_URL")
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-}
-
-model User {
-  id  String  @id @default(uuid())
-  username String 
-  password String
 }
 
 
@@ -34,18 +29,3 @@ model BpjsKecamatan {
   @@unique([tahun, kecamatan])
   @@map("bpjs_kecamatan")
 }
-
-model BpjsKelompokKecamatan {
-  id        Int    @id @default(autoincrement())
-  tahun     Int
-
-  kecamatan String
-
-  pbi       Int
-  nonPbi    Int
-  jumlah    Int?
-
-  @@unique([tahun, kecamatan])
-  @@map("bpjs_kelompok_kecamatan")
-}
-

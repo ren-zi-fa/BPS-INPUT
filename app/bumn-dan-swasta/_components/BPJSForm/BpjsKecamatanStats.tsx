@@ -19,17 +19,16 @@ export default function BpjsKecamatanStats() {
   };
 
   const handleSubmit = async () => {
-    // await fetch("", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     ...form,
-    //     kelas1: Number(form.kelas1),
-    //     kelas2: Number(form.kelas2),
-    //     kelas3: Number(form.kelas3),
-    //     jumlah: Number(form.jumlah),
-    //   }),
-    // });
+    await fetch("/api/bumn/bpjs_kecamatan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form,
+        kelas1: Number(form.kelas1),
+        kelas2: Number(form.kelas2),
+        kelas3: Number(form.kelas3),
+      }),
+    });
 
     setForm({
       kecamatan: "",
