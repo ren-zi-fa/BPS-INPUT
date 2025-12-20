@@ -3,22 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KecamatanSelect } from "@/components/common/SelectKecamatan";
-import { useEffect, useState } from "react";
-import { KecamatanCheckbox } from "@/components/common/ChecklistKecamatan";
+import { useState } from "react";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
+import { useKecamatanSubmitted } from "@/hooks/useKecamatanSubmitted";
+import { KecamatanCheckboxSection } from "@/components/common/loading/KecamatanCheckBoxSection";
 
 export default function Page() {
-  const [kecamatanSubmitted, setKecamatanSubmitted] = useState<string[]>([]);
-  const fetchKecamatanSubmitted = async () => {
-    const resp = await fetch("/api/bumn/bpjs_kelompok_kecamatan");
-    const result = await resp.json();
-    setKecamatanSubmitted(result.data);
-  };
+  const {
+    data: kecamatanSubmitted,
+    loading,
+    refetch,
+  } = useKecamatanSubmitted("/api/bumn/bpjs_kelompok_kecamatan");
 
-  useEffect(() => {
-    fetchKecamatanSubmitted();
-  }, []);
   const [form, setForm] = useState({
     kecamatan: "",
     penerima_bantuan_iuran: 0,
@@ -39,7 +36,7 @@ export default function Page() {
         bukan_penerima_bantuan_iuran: Number(form.bukan_penerima_bantuan_iuran),
       }),
     });
-    await fetchKecamatanSubmitted();
+    await refetch();
     setForm({
       kecamatan: "",
       penerima_bantuan_iuran: 0,
@@ -48,14 +45,16 @@ export default function Page() {
   };
   return (
     <div className="mt-10">
-      <h1 className="text-xl text-center font-semibold">BPJS KELOMPOK KECAMATAN</h1>
+      <h1 className="text-xl text-center font-semibold">
+        BPJS KELOMPOK KECAMATAN
+      </h1>
       <Button variant="ghost" size="icon" asChild>
         <Link href="/bumn-dan-swasta">
           <MoveLeft className="size-12" />
         </Link>
       </Button>
       <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
-        <KecamatanCheckbox submittedItem={kecamatanSubmitted} />
+        <KecamatanCheckboxSection loading={loading} data={kecamatanSubmitted} />
         <div className="space-y-4 w-full">
           <p className="text-sm text-red-700">
             Tabel_Badan Penyelenggara Jaminan Sosial
