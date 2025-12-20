@@ -1,15 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import Link from "next/link";
-import { MoveLeft } from "lucide-react";
 import { UraianSelect } from "@/components/common/selectUraian";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
 import { UraianCheckboxSection } from "@/components/common/loading/UraianCheckBoxSection";
 import { InputForm } from "@/components/common/boilerplate/InputForm";
+import ButtonBack from "@/components/common/boilerplate/ButtonBack";
 
 export default function Page() {
   const {
@@ -53,11 +50,7 @@ export default function Page() {
     <>
       <div className="mt-10">
         <h1 className="text-xl text-center font-semibold">PASIEN RAWAT INAP</h1>
-        <Button variant="ghost" size="icon" asChild>
-          <Link href="/bumn-dan-swasta?tab=rawat-jalan">
-            <MoveLeft className="size-12" />
-          </Link>
-        </Button>
+        <ButtonBack linkUrl="/bumn-dan-swasta?tab=rawat-jalan" />
         <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
           <UraianCheckboxSection loading={loading} data={UraianSubmitted} />
           <div className="space-y-4">
