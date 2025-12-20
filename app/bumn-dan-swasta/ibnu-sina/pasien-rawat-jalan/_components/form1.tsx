@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BulanSelect } from "@/components/common/SelectBulan";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
 import { BulanCheckboxSection } from "@/components/common/loading/BulanCheckboxSection";
+import { InputForm } from "@/components/common/boilerplate/InputForm";
 
 export default function Form1() {
   const {
@@ -15,11 +16,11 @@ export default function Form1() {
   } = useDataSubmitted("/api/bumn/ibnu-sina/ibnu-sina-rawat-jalan");
   const [form, setForm] = useState({
     bulan: "",
-    bedah: 0,
-    kesehatan_anak: 0,
-    poli_kebidanan: 0,
-    umum: 0,
-    gigi: 0,
+    bedah: "",
+    kesehatan_anak: "",
+    poli_kebidanan: "",
+    umum: "",
+    gigi: "",
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -41,13 +42,35 @@ export default function Form1() {
     await refetch();
     setForm({
       bulan: "",
-      bedah: 0,
-      gigi: 0,
-      kesehatan_anak: 0,
-      poli_kebidanan: 0,
-      umum: 0,
+      bedah: "",
+      gigi: "",
+      kesehatan_anak: "",
+      poli_kebidanan: "",
+      umum: "",
     });
   };
+  const formField = [
+    {
+      label: "Bedah",
+      name: "bedah",
+    },
+    {
+      label: "Kesehatan Anak",
+      name: "kesehatan_anak",
+    },
+    {
+      label: "Poli Kebidanan",
+      name: "poli_kebidanan",
+    },
+    {
+      label: "Umum",
+      name: "umum",
+    },
+    {
+      label: "gigi",
+      name: "gigi",
+    },
+  ];
   return (
     <>
       <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
@@ -67,53 +90,15 @@ export default function Form1() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label className="my-3">Bedah</Label>
-              <Input
-                type="number"
-                name="bedah"
-                value={form.bedah}
+            {formField.map((item) => (
+              <InputForm
+              key={item.name}
+                label={item.label}
+                name={item.name}
                 onChange={handleChange}
+                value={form[item.name as keyof typeof form]}
               />
-            </div>
-
-            <div>
-              <Label className="my-3">Kesehatan Anak</Label>
-              <Input
-                type="number"
-                name="kesehatan_anak"
-                value={form.kesehatan_anak}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Gigi</Label>
-              <Input
-                type="number"
-                name="gigi"
-                value={form.gigi}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <Label className="my-3">Poli Kebidanan</Label>
-              <Input
-                type="number"
-                name="poli_kebidanan"
-                value={form.poli_kebidanan}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Umum</Label>
-              <Input
-                type="number"
-                name="umum"
-                value={form.umum}
-                onChange={handleChange}
-              />
-            </div>
+            ))}
           </div>
           <Button onClick={handleSubmit} className="w-full">
             Simpan Data

@@ -3,12 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {  useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import { UraianSelect } from "@/components/common/selectUraian";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
 import { UraianCheckboxSection } from "@/components/common/loading/UraianCheckBoxSection";
+import { InputForm } from "@/components/common/boilerplate/InputForm";
 
 export default function Page() {
   const {
@@ -44,6 +45,10 @@ export default function Page() {
     });
   };
 
+  const dataPasienField = [
+    { label: "Jumlah Pasien", name: "jumlah_pasien" },
+    { label: "Hari Rawat", name: "hari_rawat" },
+  ];
   return (
     <>
       <div className="mt-10">
@@ -72,24 +77,15 @@ export default function Page() {
             </div>
 
             <div className="grid grid-cols-3 gap-4">
-              <div>
-                <Label className="my-3">Jumlah Pasien</Label>
-                <Input
-                  type="number"
-                  name="jumlah_pasien"
-                  value={form.jumlah_pasien}
+              {dataPasienField.map((item) => (
+                <InputForm
+                  key={item.name}
+                  label={item.label}
+                  name={item.name}
                   onChange={handleChange}
+                  value={form[item.name as keyof typeof form]}
                 />
-              </div>
-              <div>
-                <Label className="my-3">Hari Rawat</Label>
-                <Input
-                  type="number"
-                  name="hari_rawat"
-                  value={form.hari_rawat}
-                  onChange={handleChange}
-                />
-              </div>
+              ))}
             </div>
             <Button onClick={handleSubmit} className="w-full">
               Simpan Data

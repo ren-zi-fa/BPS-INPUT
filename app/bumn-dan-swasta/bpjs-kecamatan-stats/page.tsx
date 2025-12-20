@@ -3,11 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { KecamatanSelect } from "@/components/common/SelectKecamatan";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import { KecamatanCheckboxSection } from "@/components/common/loading/KecamatanCheckBoxSection";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
+import { InputForm } from "@/components/common/boilerplate/InputForm";
 
 export default function Page() {
   const {
@@ -46,6 +47,11 @@ export default function Page() {
       kelas3: "",
     });
   };
+  const kelasFields = [
+    { label: "Kelas I", name: "kelas1" },
+    { label: "Kelas II", name: "kelas2" },
+    { label: "Kelas III", name: "kelas3" },
+  ];
   return (
     <div className="mt-10">
       <h1 className="text-xl text-center font-semibold">BPJS KECAMATAN</h1>
@@ -76,34 +82,17 @@ export default function Page() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label className="my-3">Kelas I</Label>
-              <Input
-                type="number"
-                name="kelas1"
-                value={form.kelas1}
+            {kelasFields.map((item) => (
+              <InputForm
+                key={item.name}
+                label={item.label}
+                name={item.name}
+                value={form[item.name as keyof typeof form]}
                 onChange={handleChange}
               />
-            </div>
-            <div>
-              <Label className="my-3">Kelas II</Label>
-              <Input
-                type="number"
-                name="kelas2"
-                value={form.kelas2}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Kelas III</Label>
-              <Input
-                type="number"
-                name="kelas3"
-                value={form.kelas3}
-                onChange={handleChange}
-              />
-            </div>
+            ))}
           </div>
+
           <Button onClick={handleSubmit} className="w-full">
             Simpan Data
           </Button>

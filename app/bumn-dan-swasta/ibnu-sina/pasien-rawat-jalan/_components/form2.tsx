@@ -1,12 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
-import { BulanCheckbox } from "@/components/common/ChecklistBulan";
 import { BulanSelect } from "@/components/common/SelectBulan";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
 import { BulanCheckboxSection } from "@/components/common/loading/BulanCheckboxSection";
+import { InputForm } from "@/components/common/boilerplate/InputForm";
 
 export default function Form2() {
   const {
@@ -17,12 +15,12 @@ export default function Form2() {
 
   const [form2, setForm2] = useState({
     bulan2: "",
-    penyakit_dalam: 0,
-    jiwa: 0,
-    tht: 0,
-    mata: 0,
-    neurologi: 0,
-    fisioterapi: 0,
+    penyakit_dalam: "",
+    jiwa: "",
+    tht: "",
+    mata: "",
+    neurologi: "",
+    fisioterapi: "",
   });
 
   const handleChange2 = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,14 +44,23 @@ export default function Form2() {
     await refetch();
     setForm2({
       bulan2: "",
-      fisioterapi: 0,
-      jiwa: 0,
-      mata: 0,
-      neurologi: 0,
-      penyakit_dalam: 0,
-      tht: 0,
+      fisioterapi: "",
+      jiwa: "",
+      mata: "",
+      neurologi: "",
+      penyakit_dalam: "",
+      tht: "",
     });
   };
+  const form2field = [
+    { label: "Penyakit Dalam", name: "penyakit_dalam" },
+    { label: "Jiwa", name: "jiwa" },
+    { label: "THT", name: "tht" },
+    { label: "Mata", name: "mata" },
+    { label: "Neurologi", name: "neurologi" },
+    { label: "Fisioterapi", name: "fisioterapi" },
+  ];
+
   return (
     <>
       <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
@@ -70,62 +77,18 @@ export default function Form2() {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label className="my-3">Penyakit Dalam</Label>
-              <Input
-                type="number"
-                name="penyakit_dalam"
-                value={form2.penyakit_dalam}
-                onChange={handleChange2}
-              />
-            </div>
-
-            <div>
-              <Label className="my-3">Jiwa</Label>
-              <Input
-                type="number"
-                name="jiwa"
-                value={form2.jiwa}
-                onChange={handleChange2}
-              />
-            </div>
-            <div>
-              <Label className="my-3">THT</Label>
-              <Input
-                type="number"
-                name="tht"
-                value={form2.tht}
-                onChange={handleChange2}
-              />
-            </div>
-
-            <div>
-              <Label className="my-3">Mata</Label>
-              <Input
-                type="number"
-                name="mata"
-                value={form2.mata}
-                onChange={handleChange2}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Neurologi</Label>
-              <Input
-                type="number"
-                name="neurologi"
-                value={form2.neurologi}
-                onChange={handleChange2}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Fisioterapi</Label>
-              <Input
-                type="number"
-                name="fisioterapi"
-                value={form2.fisioterapi}
-                onChange={handleChange2}
-              />
-            </div>
+            {form2field.map((item) => {
+              console.log(form2[item.name as keyof typeof form2]);
+              return (
+                <InputForm
+                  key={item.name}
+                  label={item.label}
+                  name={item.name}
+                  onChange={handleChange2}
+                  value={form2[item.name as keyof typeof form2]}
+                />
+              );
+            })}
           </div>
           <Button onClick={handleSubmit2} className="w-full">
             Simpan Data

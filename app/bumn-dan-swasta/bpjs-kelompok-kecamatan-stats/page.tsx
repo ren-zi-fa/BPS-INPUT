@@ -6,9 +6,9 @@ import { KecamatanSelect } from "@/components/common/SelectKecamatan";
 import { useState } from "react";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
-
 import { KecamatanCheckboxSection } from "@/components/common/loading/KecamatanCheckBoxSection";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
+import { InputForm } from "@/components/common/boilerplate/InputForm";
 
 export default function Page() {
   const {
@@ -19,8 +19,8 @@ export default function Page() {
 
   const [form, setForm] = useState({
     kecamatan: "",
-    penerima_bantuan_iuran: 0,
-    bukan_penerima_bantuan_iuran: 0,
+    penerima_bantuan_iuran: "",
+    bukan_penerima_bantuan_iuran: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,10 +40,17 @@ export default function Page() {
     await refetch();
     setForm({
       kecamatan: "",
-      penerima_bantuan_iuran: 0,
-      bukan_penerima_bantuan_iuran: 0,
+      penerima_bantuan_iuran: "",
+      bukan_penerima_bantuan_iuran: "",
     });
   };
+  const kelompokFields = [
+    { label: "Penerima Bantuan Iuran (PBI)", name: "penerima_bantuan_iuran" },
+    {
+      label: "  Bukan Penerima Bantuan Iuran (Non PBI)",
+      name: "bukan_penerima_bantuan_iurann",
+    },
+  ];
   return (
     <div className="mt-10">
       <h1 className="text-xl text-center font-semibold">
@@ -75,26 +82,15 @@ export default function Page() {
           </div>
 
           <div className="flex flex-col">
-            <div>
-              <Label className="my-3">Penerima Bantuan Iuran (PBI)</Label>
-              <Input
-                type="number"
-                name="penerima_bantuan_iuran"
-                value={form.penerima_bantuan_iuran}
+            {kelompokFields.map((item) => (
+              <InputForm
+                key={item.name}
+                label={item.label}
+                name={item.name}
                 onChange={handleChange}
+                value={form[item.name as keyof typeof form]}
               />
-            </div>
-            <div>
-              <Label className="my-3">
-                Bukan Penerima Bantuan Iuran (Non PBI)
-              </Label>
-              <Input
-                type="number"
-                name="bukan_penerima_bantuan_iuran"
-                value={form.bukan_penerima_bantuan_iuran}
-                onChange={handleChange}
-              />
-            </div>
+            ))}
           </div>
 
           <Button onClick={handleSubmit} className="w-full">
