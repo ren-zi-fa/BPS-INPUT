@@ -58,3 +58,11 @@ model LanjutanIbnuSinaRawatJalan {
   @@unique([bulan])
   @@map("lanjutan_ibnu_sina_rawat_jalan")
 }
+model IbnuSinaRawatInap {
+  id               Int     @id @default(autoincrement())
+  uraian           String
+  jumlah_pasien    Int
+  hari_rawat       Int
+  @@unique([uraian])
+  @@map("ibnu_sina_rawat_inap")
+}

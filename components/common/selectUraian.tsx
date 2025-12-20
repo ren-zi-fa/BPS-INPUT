@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/command";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { kecamatan as KECAMATAN } from "@/constant/menu";
+import { uraian } from "@/constant/data";
 
 type Props = {
   value: string;
@@ -26,16 +26,12 @@ type Props = {
   submittedItem?: string[];
 };
 
-export function KecamatanSelect({
-  value,
-  onChange,
-  submittedItem = [],
-}: Props) {
+export function UraianSelect({ value, onChange, submittedItem = [] }: Props) {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
-      <Label className="my-3 block">Kecamatan</Label>
+      <Label className="my-3 block">Uraian</Label>
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -43,22 +39,22 @@ export function KecamatanSelect({
             role="combobox"
             className="w-full justify-between"
           >
-            {value || "Pilih kecamatan"}
+            {value || "Pilih Uraian"}
             <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-full p-0">
           <Command>
-            <CommandInput placeholder="Cari kecamatan..." />
+            <CommandInput placeholder="Cari Uraian..." />
             <CommandEmpty>Tidak ditemukan.</CommandEmpty>
             <CommandGroup>
-              {KECAMATAN.map((kec) => {
-                const isSubmitted = submittedItem.includes(kec.label);
+              {uraian.map((itm) => {
+                const isSubmitted = submittedItem.includes(itm.label);
 
                 return (
                   <CommandItem
-                    key={kec.key}
-                    value={kec.label}
+                    key={itm.key}
+                    value={itm.label}
                     disabled={isSubmitted}
                     onSelect={(val) => {
                       if (isSubmitted) return;
@@ -75,11 +71,11 @@ export function KecamatanSelect({
                       <X
                         className={cn(
                           "mr-2 h-4 w-4",
-                          value === kec.label ? "opacity-100" : "opacity-0"
+                          value === itm.label ? "opacity-100" : "opacity-0"
                         )}
                       />
                     )}
-                    {kec.label}
+                    {itm.label}
                   </CommandItem>
                 );
               })}

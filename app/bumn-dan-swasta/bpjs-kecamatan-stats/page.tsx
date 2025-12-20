@@ -6,7 +6,7 @@ import { KecamatanSelect } from "@/components/common/SelectKecamatan";
 import { useEffect, useState } from "react";
 import { KecamatanCheckbox } from "@/components/common/ChecklistKecamatan";
 import Link from "next/link";
-import {  MoveLeft } from "lucide-react";
+import { MoveLeft } from "lucide-react";
 
 export default function page() {
   const [kecamatanSubmitted, setKecamatanSubmitted] = useState<string[]>([]);
@@ -52,6 +52,7 @@ export default function page() {
   };
   return (
     <div className="mt-10">
+      <h1 className="text-xl text-center font-semibold">BPJS KECAMATAN</h1>
       <Button variant="ghost" size="icon" asChild>
         <Link href="/bumn-dan-swasta">
           <MoveLeft className="size-12" />

@@ -1,20 +1,25 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
 import { useState } from "react";
-import { BulanCheckbox } from "@/components/common/ChecklistBulan";
-import { BulanSelect } from "@/components/common/SelectBulan";
+import Link from "next/link";
+import { MoveLeft } from "lucide-react";
+import { UraianCheckbox } from "@/components/common/ChecklistUraian";
+import { UraianSelect } from "@/components/common/selectUraian";
 
 export default function page() {
+  const [UraianSubmitted, setUraianSubmitted] = useState<string[]>([]);
+  const fetchUraianSubmitted = async () => {
+    const resp = await fetch("/api/bumn/ibnu-sina/rawat-inap");
+    const result = await resp.json();
+    setUraianSubmitted(result.data);
+  };
   const [form, setForm] = useState({
-    bulan: "",
-    bedah: "",
-    kesehatan_anak: "",
-    poli_kebidanan: "",
-    umum: "",
-    gigi: "",
+    uraian: "",
+    jumlah_pasien: "",
+    hari_rawat: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,97 +27,72 @@ export default function page() {
   };
 
   const handleSubmit = async () => {
-    // await fetch("", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     ...form,
-    //     kelas1: Number(form.kelas1),
-    //     kelas2: Number(form.kelas2),
-    //     kelas3: Number(form.kelas3),
-    //     jumlah: Number(form.jumlah),
-    //   }),
-    // });
-
+    await fetch("/api/bumn/ibnu-sina/rawat-inap", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...form,
+        jumlah_pasien: Number(form.jumlah_pasien),
+        hari_rawat: Number(form.hari_rawat),
+      }),
+    });
+    await fetchUraianSubmitted();
     setForm({
-      bulan: "",
-      bedah: "",
-      gigi: "",
-      kesehatan_anak: "",
-      poli_kebidanan: "",
-      umum: "",
+      uraian: "",
+      jumlah_pasien: "",
+      hari_rawat: "",
     });
   };
 
   return (
     <>
-      {/* Lanjutan Tabel 4.2.15 */}
-      <div className="flex gap-3 flex-col md:flex-row border-2 space-x-2 rounded-sm p-4 ">
-        <BulanCheckbox />
-        <div className="space-y-4">
-          <p className="text-sm capitalize">
-            Jumlah Peserta BPJS Kesehatan dan Rata-rata Iuran Per Peserta
-            Menurut Kecamatan di Kabupaten Pasaman Barat,
-          </p>
-          <div>
-            <BulanSelect
-              value={form.bulan}
-              onChange={(val) => setForm((prev) => ({ ...prev, bulan: val }))}
-            />
+      <div className="mt-10">
+        <h1 className="text-xl text-center font-semibold">PASIEN RAWAT INAP</h1>
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/bumn-dan-swasta?tab=rawat-jalan">
+            <MoveLeft className="size-12" />
+          </Link>
+        </Button>
+        <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
+          <UraianCheckbox submittedItem={UraianSubmitted} />
+          <div className="space-y-4">
+            <p className="text-sm text-red-700">Tabel_Ibnu Sina Yarsi </p>
+            <p className="text-sm capitalize">
+              Tabel 4.2.16 Banyaknya Pasien Yang Dirawat Inap di RSI Ibnu Sina
+              Simpang Empat
+            </p>
+            <div>
+              <UraianSelect
+                submittedItem={UraianSubmitted}
+                value={form.uraian}
+                onChange={(val) => setForm((prev) => ({ ...prev, uraian: val }))}
+              />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <Label className="my-3">Jumlah Pasien</Label>
+                <Input
+                  type="number"
+                  name="jumlah_pasien"
+                  value={form.jumlah_pasien}
+                  onChange={handleChange}
+                />
+              </div>
+              <div>
+                <Label className="my-3">Hari Rawat</Label>
+                <Input
+                  type="number"
+                  name="hari_rawat"
+                  value={form.hari_rawat}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <Button onClick={handleSubmit} className="w-full">
+              Simpan Data
+            </Button>
           </div>
-
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              <Label className="my-3">Bedah</Label>
-              <Input
-                type="number"
-                name="bedah"
-                value={form.bedah}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <Label className="my-3">Kesehatan Anak</Label>
-              <Input
-                type="number"
-                name="kesehatan_anak"
-                value={form.kesehatan_anak}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Gigi</Label>
-              <Input
-                type="number"
-                name="gigi"
-                value={form.gigi}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div>
-              <Label className="my-3">Poli Kebidanan</Label>
-              <Input
-                type="number"
-                name="poli_kebidanan"
-                value={form.poli_kebidanan}
-                onChange={handleChange}
-              />
-            </div>
-            <div>
-              <Label className="my-3">Umum</Label>
-              <Input
-                type="number"
-                name="umum"
-                value={form.umum}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <Button onClick={handleSubmit} className="w-full">
-            Simpan Data
-          </Button>
         </div>
       </div>
     </>

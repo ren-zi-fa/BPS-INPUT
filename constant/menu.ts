@@ -1,5 +1,4 @@
 import { Kecamatan, Menu } from "@/type";
-import { Label } from "recharts";
 
 const mainMenu: Menu[] = [
   { label: "STATISTIK", url: "/" },

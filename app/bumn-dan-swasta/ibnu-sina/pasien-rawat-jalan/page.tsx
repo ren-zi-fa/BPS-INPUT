@@ -8,7 +8,7 @@ import Form2 from "./_components/form2";
 export default function page() {
   return (
     <div className="mt-10">
-      {/* tablel 4.2.15 */}
+      <h1 className="text-xl text-center font-semibold">PASIEN RAWAT JALAN</h1>
       <Button variant="ghost" size="icon" asChild>
         <Link href="/bumn-dan-swasta?tab=rawat-jalan">
           <MoveLeft className="size-12" />
@@ -16,7 +16,7 @@ export default function page() {
       </Button>
       <Form1 />
       <Form2 />
-      {/* Lanjutan Tabel 4.2.15 */}
+  
     </div>
   );
 }

@@ -48,6 +48,7 @@ export default function page() {
   };
   return (
     <div className="mt-10">
+      <h1 className="text-xl text-center font-semibold">BPJS KELOMPOK KECAMATAN</h1>
       <Button variant="ghost" size="icon" asChild>
         <Link href="/bumn-dan-swasta">
           <MoveLeft className="size-12" />
