@@ -32,11 +32,10 @@ export default function BUMNdanSwasta() {
       <Tabs value={activeTab} onValueChange={onTabChange}>
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="bpjs">Penyelenggara BPJS</TabsTrigger>
-          <TabsTrigger value="rawat-jalan">
-            Ibnu Sina Yarsi
-          </TabsTrigger>
+          <TabsTrigger value="ibnu-sina-yarsi">Ibnu Sina Yarsi</TabsTrigger>
         </TabsList>
         <TabsContent value="bpjs" className="mt-6">
+          <h1 className="my-4">Sheet :</h1>
           <FolderIconLink
             href="/bumn-dan-swasta/bpjs-kecamatan-stats"
             label="bpjs-kecamatan"
@@ -48,7 +47,8 @@ export default function BUMNdanSwasta() {
             popover="form bpjs kelompok kkecamatan"
           />
         </TabsContent>
-        <TabsContent value="rawat-jalan" className="mt-6">
+        <TabsContent value="ibnu-sina-yarsi" className="mt-6 space-x-5">
+          <h1 className="my-4">Sheet :</h1>
           <FolderIconLink
             href="/bumn-dan-swasta/ibnu-sina/pasien-rawat-jalan"
             label="pasien-rawat-jalan"
@@ -58,6 +58,16 @@ export default function BUMNdanSwasta() {
             href="/bumn-dan-swasta/ibnu-sina/pasien-rawat-inap"
             label="pasien-rawat-inap"
             popover="form bpjs pasien rawat inap"
+          />
+          <FolderIconLink
+            href="/bumn-dan-swasta/ibnu-sina/fasilitas"
+            label="fasilitas"
+            popover="form jumlah fasilitas ibnu sina"
+          />
+          <FolderIconLink
+            href="/bumn-dan-swasta/ibnu-sina/kelahiran-kematian"
+            label="kelahiran dan kematian"
+            popover="form jumlah kelahiran dan kematian ibnu sina"
           />
         </TabsContent>
       </Tabs>

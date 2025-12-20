@@ -66,3 +66,15 @@ model IbnuSinaRawatInap {
   @@unique([uraian])
   @@map("ibnu_sina_rawat_inap")
 }
+model Fasilitas {
+  id           Int     @id @default(autoincrement())
+  fasilitas    String
+  dua_ribu_20  Int
+  dua_ribu_21  Int
+  dua_ribu_22  Int
+  dua_ribu_23  Int
+  dua_ribu_24  Int
+
+  @@unique([fasilitas])
+  @@map("ibnu_sina_fasilitas")
+}

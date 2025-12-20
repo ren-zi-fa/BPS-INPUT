@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -18,19 +18,21 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { fasilitas } from "@/constant/menu";
 
-export function SelectFasilitas({
-  value,
-  onChange,
-}: {
+type Props = {
   value: string;
   onChange: (val: string) => void;
-}) {
+  submittedItem?: string[];
+};
+export function FasilitasSelect({
+  onChange,
+  value,
+  submittedItem = [],
+}: Props) {
   const [open, setOpen] = useState(false);
 
   return (
     <div>
       <Label className="my-3 block">Fasilitas</Label>
-
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button
@@ -38,36 +40,46 @@ export function SelectFasilitas({
             role="combobox"
             className="w-full justify-between"
           >
-            {value
-              ? fasilitas.find((k) => k.label === value)?.label
-              : "Pilih fasilitas"}
-            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            {value || "Pilih Fasilitas"}
+            <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
           </Button>
         </PopoverTrigger>
-
         <PopoverContent className="w-full p-0">
           <Command>
             <CommandInput placeholder="Cari Fasilitas..." />
             <CommandEmpty>Tidak ditemukan.</CommandEmpty>
             <CommandGroup>
-              {fasilitas.map((fasi) => (
-                <CommandItem
-                  key={fasi.key}
-                  value={fasi.label}
-                  onSelect={(currentValue) => {
-                    onChange(currentValue);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
+              {fasilitas.map((fasil) => {
+                const isSubmitted = submittedItem.includes(fasil.label);
+
+                return (
+                  <CommandItem
+                    key={fasil.key}
+                    value={fasil.label}
+                    disabled={isSubmitted}
+                    onSelect={(val) => {
+                      if (isSubmitted) return;
+                      onChange(val);
+                      setOpen(false);
+                    }}
                     className={cn(
-                      "mr-2 h-4 w-4",
-                      value === fasi.label ? "opacity-100" : "opacity-0"
+                      isSubmitted && "opacity-50 cursor-not-allowed"
                     )}
-                  />
-                  {fasi.label}
-                </CommandItem>
-              ))}
+                  >
+                    {isSubmitted ? (
+                      <Check className="mr-2 h-4 w-4 text-green-500" />
+                    ) : (
+                      <X
+                        className={cn(
+                          "mr-2 h-4 w-4",
+                          value === fasil.label ? "opacity-100" : "opacity-0"
+                        )}
+                      />
+                    )}
+                    {fasil.label}
+                  </CommandItem>
+                );
+              })}
             </CommandGroup>
           </Command>
         </PopoverContent>

@@ -2,22 +2,25 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { UraianSelect } from "@/components/common/selectUraian";
 import { useDataSubmitted } from "@/hooks/useDataSubmitted";
-import { UraianCheckboxSection } from "@/components/common/loading/UraianCheckBoxSection";
 import { InputForm } from "@/components/common/boilerplate/InputForm";
 import ButtonBack from "@/components/common/boilerplate/ButtonBack";
+import { FasilitasCheckboxSection } from "@/components/common/loading/FasilitasCheckBoxSection";
+import { FasilitasSelect } from "@/components/common/SelectFasilitas";
 
 export default function Page() {
   const {
-    data: UraianSubmitted,
+    data: fasilitasSubmitted,
     loading,
     refetch,
-  } = useDataSubmitted("/api/bumn/ibnu-sina/rawat-inap");
+  } = useDataSubmitted("/api/bumn/ibnu-sina/fasilitas-ibnu-sina");
   const [form, setForm] = useState({
-    uraian: "",
-    jumlah_pasien: "",
-    hari_rawat: "",
+    dua_ribu_20: "",
+    dua_ribu_21: "",
+    dua_ribu_22: "",
+    dua_ribu_23: "",
+    dua_ribu_24: "",
+    fasilitas: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,46 +28,60 @@ export default function Page() {
   };
 
   const handleSubmit = async () => {
-    await fetch("/api/bumn/ibnu-sina/rawat-inap", {
+    await fetch("/api/bumn/ibnu-sina/fasilitas-ibnu-sina", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...form,
-        jumlah_pasien: Number(form.jumlah_pasien),
-        hari_rawat: Number(form.hari_rawat),
+        dua_ribu_20: Number(form.dua_ribu_20),
+        dua_ribu_21: Number(form.dua_ribu_21),
+        dua_ribu_22: Number(form.dua_ribu_22),
+        dua_ribu_23: Number(form.dua_ribu_23),
+        dua_ribu_24: Number(form.dua_ribu_24),
       }),
     });
     await refetch();
     setForm({
-      uraian: "",
-      jumlah_pasien: "",
-      hari_rawat: "",
+      dua_ribu_20: "",
+      dua_ribu_21: "",
+      dua_ribu_22: "",
+      dua_ribu_23: "",
+      dua_ribu_24: "",
+      fasilitas: "",
     });
   };
 
   const dataPasienField = [
-    { label: "Jumlah Pasien", name: "jumlah_pasien" },
-    { label: "Hari Rawat", name: "hari_rawat" },
+    { label: "2020", name: "dua_ribu_20" },
+    { label: "2021", name: "dua_ribu_21" },
+    { label: "2022", name: "dua_ribu_22" },
+    { label: "2023", name: "dua_ribu_23" },
+    { label: "2024", name: "dua_ribu_24" },
   ];
   return (
     <>
       <div className="mt-10">
-        <h1 className="text-xl text-center font-semibold">PASIEN RAWAT INAP</h1>
+        <h1 className="text-xl text-center font-semibold">
+          FASILITAS IBNU SINA YARSI
+        </h1>
         <ButtonBack linkUrl="/bumn-dan-swasta?tab=ibnu-sina-yarsi" />
         <div className="flex flex-col md:flex-row gap-3 border rounded-sm p-4 mt-20">
-          <UraianCheckboxSection loading={loading} data={UraianSubmitted} />
+          <FasilitasCheckboxSection
+            loading={loading}
+            data={fasilitasSubmitted}
+          />
           <div className="space-y-4">
             <p className="text-sm text-red-700">Tabel_Ibnu Sina Yarsi </p>
             <p className="text-sm capitalize">
-              Tabel 4.2.16 Banyaknya Pasien Yang Dirawat Inap di RSI Ibnu Sina
-              Simpang Empat
+              Tabel 4.2.17 Banyaknya Fasilitas yang ada di RSI Ibnu Sina Simpang
+              Empat, 2020-2024
             </p>
             <div>
-              <UraianSelect
-                submittedItem={UraianSubmitted}
-                value={form.uraian}
+              <FasilitasSelect
+                submittedItem={fasilitasSubmitted}
+                value={form.fasilitas}
                 onChange={(val) =>
-                  setForm((prev) => ({ ...prev, uraian: val }))
+                  setForm((prev) => ({ ...prev, fasilitas: val }))
                 }
               />
             </div>
