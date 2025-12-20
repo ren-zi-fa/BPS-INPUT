@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { MoveLeft } from "lucide-react";
 import { UraianCheckbox } from "@/components/common/ChecklistUraian";
@@ -16,6 +16,9 @@ export default function page() {
     const result = await resp.json();
     setUraianSubmitted(result.data);
   };
+  useEffect(() => {
+    fetchUraianSubmitted();
+  }, []);
   const [form, setForm] = useState({
     uraian: "",
     jumlah_pasien: "",
@@ -65,7 +68,9 @@ export default function page() {
               <UraianSelect
                 submittedItem={UraianSubmitted}
                 value={form.uraian}
-                onChange={(val) => setForm((prev) => ({ ...prev, uraian: val }))}
+                onChange={(val) =>
+                  setForm((prev) => ({ ...prev, uraian: val }))
+                }
               />
             </div>
 
