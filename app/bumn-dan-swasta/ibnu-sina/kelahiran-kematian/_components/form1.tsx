@@ -11,7 +11,7 @@ export default function Form1() {
     data: bulanSubmitted,
     loading,
     refetch,
-  } = useDataSubmitted("/api/bumn/ibnu-sina/");
+  } = useDataSubmitted("/api/bumn/ibnu-sina/kelahiran-kematian");
   const [form, setForm] = useState({
     bulan: "",
     bersalin: "",
@@ -22,13 +22,13 @@ export default function Form1() {
   };
 
   const handleSubmit = async () => {
-    await fetch("/api/bumn/ibnu-sina/", {
+    await fetch("/api/bumn/ibnu-sina/kelahiran-kematian", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ...form,
         bersalin: Number(form.bersalin),
-        poli_kebidanan: Number(form.keguguran),
+        keguguran: Number(form.keguguran),
       }),
     });
     await refetch();

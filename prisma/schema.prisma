@@ -78,3 +78,25 @@ model Fasilitas {
   @@unique([fasilitas])
   @@map("ibnu_sina_fasilitas")
 }
+model KelahiranKematian {
+  id           Int     @id @default(autoincrement())
+  bulan    String
+  bersalin  Int
+  keguguran  Int
+
+  @@unique([bulan])
+  @@map("ibnu_sina_kelahiran_kematian")
+}
+model LanjutanKelahiranKematian {
+  id Int @id @default(autoincrement())
+  bulan String
+
+  hidup_laki_laki Int
+  hidup_perempuan Int
+
+  mati_laki_laki Int
+  mati_perempuan Int
+
+  @@unique([bulan])
+  @@map("ibnu_sina_lanjutan_kelahiran_kematian")
+}
