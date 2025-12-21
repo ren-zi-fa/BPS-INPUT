@@ -1,7 +1,6 @@
 import { Kecamatan, Menu } from "@/type";
 
 const mainMenu: Menu[] = [
-  { label: "STATISTIK", url: "/" },
   { label: "BUMN dan Swasta", url: "/bumn-dan-swasta" },
   { label: "Kecamatan", url: "/kecamatan" },
   { label: "Nagari", url: "/nagari" },

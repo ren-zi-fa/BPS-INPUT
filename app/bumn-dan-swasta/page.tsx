@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { FolderIconLink } from "@/components/common/FolderIconLink";
+import ButtonBack from "@/components/common/boilerplate/ButtonBack";
 
 export default function BUMNdanSwasta() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function BUMNdanSwasta() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-10">
       {/* Header */}
+      <ButtonBack linkUrl="/"/>
       <header className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">
           Data BUMN dan Swasta
