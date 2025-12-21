@@ -10,14 +10,14 @@ import { Tiles } from "@/components/common/Tails";
 export default function Page() {
   return (
     <div className="relative min-h-screen flex flex-col justify-center items-center py-7 overflow-hidden">
-      <h1
+      {/* <h1
         className="font-extrabold uppercase tracking-widest
  text-[clamp(3rem,10vw,4rem)]
  bg-linear-to-r from-[#005BAC] via-[#00A859] to-[#F7941D]
  bg-clip-text text-transparent"
       >
         DDA 2026
-      </h1>
+      </h1> */}
 
       <Tiles className="absolute inset-0 -z-10" />
       <div className="flex flex-col gap-6 z-10">
@@ -30,7 +30,7 @@ export default function Page() {
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 0.12, y: 0 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 select-none "
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 select-none "
       >
         <div className="flex  items-center gap-2 sm:gap-3 lg:gap-4">
           <img

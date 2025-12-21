@@ -21,7 +21,7 @@ export default function BUMNdanSwasta() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-10">
       {/* Header */}
-      <ButtonBack linkUrl="/"/>
+      <ButtonBack linkUrl="/" />
       <header className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">
           Data BUMN dan Swasta

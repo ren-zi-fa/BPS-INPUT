@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Folder } from "lucide-react";
+import { File } from "lucide-react";
 import {
   Popover,
   PopoverTrigger,
@@ -36,7 +36,7 @@ export function FolderIconLink({
           }}
           className="inline-flex flex-col items-center gap-1 cursor-pointer"
         >
-          <Folder size={size} className="text-slate-700 hover:text-slate-900" />
+          <File size={size} className="text-slate-700  hover:text-slate-900" />
           <p className="text-sm text-center max-w-24 wrap-break-words">
             {label}
           </p>
