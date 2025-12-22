@@ -12,6 +12,31 @@ const dataRanahBatahan: InformasiKecamatanProps = {
   nama_kecamatan: "Ranah Batahan",
   ketinggian_dari_permukaan_laut: "20 Mdpl s/d 1.573 Mdpl",
 };
+
+const dataSungaiBeremas: InformasiKecamatanProps = {
+  title: "Sungai Beremas",
+  luas_kecamatan: "",
+  batas_kecamatan: {
+    utara: "",
+    selatan: "",
+    barat: "",
+    timur: "",
+  },
+  nama_kecamatan: "Ranah Batahan",
+  ketinggian_dari_permukaan_laut: "20 Mdpl s/d 1.573 Mdpl",
+};
+const dataLuhakNanDuo: InformasiKecamatanProps = {
+  title: "Luhak Nan Duo",
+  luas_kecamatan: "174,21 KM²",
+  batas_kecamatan: {
+    utara: "kecamatan Pasaman",
+    selatan: "Kecamatan Kinali",
+    barat: "Kec. Sasak Ranah Pasisie",
+    timur: "Kec.Talamau dan Kec. Pasaman",
+  },
+  nama_kecamatan: "Luhak Nan Duo",
+  ketinggian_dari_permukaan_laut: "0-1.250  Mdpl",
+};
 const dataKotoBalingka: InformasiKecamatanProps = {
   title: "Koto Balingka",
   luas_kecamatan: "340,78 M²",

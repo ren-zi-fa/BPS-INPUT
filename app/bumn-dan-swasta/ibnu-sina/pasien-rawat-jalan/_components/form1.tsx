@@ -90,7 +90,7 @@ export default function Form1() {
           <div className="grid grid-cols-3 gap-4">
             {formField.map((item) => (
               <InputForm
-              key={item.name}
+                key={item.name}
                 label={item.label}
                 name={item.name}
                 onChange={handleChange}

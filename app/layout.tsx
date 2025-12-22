@@ -43,6 +43,7 @@ export default function RootLayout({
           >
             ~/
           </Link>
+          {/* Renzi febriandika */}
         </div>
       </body>
     </html>

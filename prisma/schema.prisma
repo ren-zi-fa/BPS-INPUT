@@ -100,3 +100,30 @@ model LanjutanKelahiranKematian {
   @@unique([bulan])
   @@map("ibnu_sina_lanjutan_kelahiran_kematian")
 }
+
+// sheet kecamatan
+
+model Kecamatan {
+  id   Int    @id @default(autoincrement())
+  nama String @unique
+
+  data        InformasiKecamatan?
+}
+
+
+model InformasiKecamatan {
+  id Int @id @default(autoincrement())
+
+  kecamatanId Int @unique
+  kecamatan   Kecamatan @relation(fields: [kecamatanId], references: [id])
+
+  luas_km2 String
+  ketinggian_dari_permukaan_laut String
+  batas_utara String
+  batas_selatan String
+  batas_barat String
+  batas_timur String
+}
+
+
+// akhir kecamatan

@@ -1,3 +1,5 @@
+import { ChangeEvent } from "react";
+
 export type Nagari = {
   key: number;
   label: string;
@@ -21,3 +23,17 @@ export type Kecamatan = {
   // Ketinggian_Permukaan_Laut?: string;
   label: string;
 };
+
+export interface InformasiKecamatanProps {
+  title: string;
+  nama_kecamatan: string;
+  luas_kecamatan: string;
+  batas_kecamatan: {
+    utara: string;
+    selatan: string;
+    barat: string;
+    timur: string;
+  };
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  ketinggian_dari_permukaan_laut: string;
+}
