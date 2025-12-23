@@ -7,18 +7,28 @@ import {
   Fasilitas,
   IbnuSinaRawatInap,
   IbnuSinaRawatJalan,
+  KelahiranKematian,
   LanjutanIbnuSinaRawatJalan,
+  LanjutanKelahiranKematian,
 } from "@/lib/generated/prisma/client";
 import RawatJalan from "./RawatJalan";
 import LanjutanRawatJalan from "./LanjutRawatJalan";
 import RawatInap from "./RawatInap";
 import FasilitasTable from "./Fasilitas";
+import KelahiranKematianTable from "./KelahiranKematian";
+import LanjutanKelahiranKematianTable from "./LanjutanKelahiranKematian";
 
 export default function Swasta() {
   const [rawatJalan, setRawatJalan] = useState<IbnuSinaRawatJalan[]>([]);
   const [lanjutan, setLanjutan] = useState<LanjutanIbnuSinaRawatJalan[]>([]);
   const [rawatInap, setRawatInap] = useState<IbnuSinaRawatInap[]>([]);
   const [fasilitass, setfasilitass] = useState<Fasilitas[]>([]);
+  const [kelahiranKematian, setkelahiranKematian] = useState<
+    KelahiranKematian[]
+  >([]);
+  const [lanjutanKelahiranKematian, setLanjutanKelahiranKematian] = useState<
+    LanjutanKelahiranKematian[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -33,13 +43,30 @@ export default function Swasta() {
         res.json()
       ),
       fetch("/api/dashboard/bumn/fasilitas").then((res) => res.json()),
+      fetch("/api/dashboard/bumn/kelahiran-kematian").then((res) => res.json()),
+      fetch("/api/dashboard/bumn/lanjutan-kelahiran-kematian").then((res) =>
+        res.json()
+      ),
     ])
-      .then(([resRawat, resLanjutan, restRawatInap, restFasilitas]) => {
-        setRawatJalan(resRawat.data);
-        setLanjutan(resLanjutan.data);
-        setRawatInap(restRawatInap.data);
-        setfasilitass(restFasilitas.data);
-      })
+
+      .then(
+        ([
+          resRawat,
+          resLanjutan,
+          restRawatInap,
+          restFasilitas,
+          restKelahrianMatian,
+          restLanjutKelahrianMatian,
+        ]) => {
+          setRawatJalan(resRawat.data);
+          setLanjutan(resLanjutan.data);
+          setRawatInap(restRawatInap.data);
+          setfasilitass(restFasilitas.data);
+          setfasilitass(restFasilitas.data);
+          setkelahiranKematian(restKelahrianMatian.data);
+          setLanjutanKelahiranKematian(restLanjutKelahrianMatian.data);
+        }
+      )
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
@@ -67,7 +94,7 @@ export default function Swasta() {
         ],
       },
       {
-        sheetName: "Lanjutan",
+        sheetName: "Lanjutan Rawat Jalan",
         data: lanjutan.map((item) => ({
           Bulan: item.bulan,
           Fisioterapi: item.fisioterapi,
@@ -107,9 +134,34 @@ export default function Swasta() {
         })),
         totalFields: ["2020", "2021", "2022", "2023", "2024"],
       },
+      {
+        sheetName: "Sheet 5",
+        data: kelahiranKematian.map((item) => ({
+          Bulan: item.bulan,
+          Bersalin: item.bersalin,
+          Keguguran: item.keguguran,
+        })),
+        totalFields: ["Bersalin", "Keguguran"],
+      },
+      {
+        sheetName: "Lanjutan Sheet 5",
+        data: lanjutanKelahiranKematian.map((item) => ({
+          Bulan: item.bulan,
+          "Hidup Laki Laki": item.hidup_laki_laki,
+          "Hidup Perempuan": item.hidup_perempuan,
+          "Mati Laki Laki": item.mati_laki_laki,
+          "Mati Perempuan": item.mati_perempuan,
+        })),
+        totalFields: [
+          "Hidup Laki Laki",
+          "Hidup Perempuan",
+          "Mati Laki Laki",
+          "Mati Perempuan",
+        ],
+      },
     ];
 
-    exportToExcelRawatJalan(sheets, "IbnuSina.xlsx");
+    exportToExcel(sheets, "Tabel-Ibnu-Sina.xlsx");
   };
 
   return (
@@ -125,6 +177,12 @@ export default function Swasta() {
       <div className="border p-4 rounded-sm mt-4">
         <FasilitasTable fasilitas={fasilitass} />
       </div>
+      <div className="border p-4 rounded-sm">
+        <KelahiranKematianTable kelahirans_kematians={kelahiranKematian} />
+        <LanjutanKelahiranKematianTable
+          kelahirans_kematians={lanjutanKelahiranKematian}
+        />
+      </div>
       <Button className="mt-6" onClick={exportAllToExcel}>
         Export ke Excel
       </Button>
@@ -137,28 +195,33 @@ export interface SheetData {
   data: Record<string, any>[];
   totalFields?: string[];
 }
-function exportToExcelRawatJalan(sheets: SheetData[], fileName: string) {
+function exportToExcel(sheets: SheetData[], fileName: string) {
   const workbook = XLSX.utils.book_new();
 
   sheets.forEach((sheet) => {
     const { sheetName, data, totalFields } = sheet;
     const sheetData = [...data];
 
-    if (totalFields && totalFields.length > 0) {
-      const totalRow = totalFields.reduce(
-        (acc, key) => ({
-          ...acc,
-          [key]: data.reduce((sum, row) => sum + (row[key] || 0), 0),
-        }),
-        {} as Record<string, number>
-      );
+    if (totalFields && totalFields.length > 0 && data.length > 0) {
+      const totalRow: Record<string, any> = {};
 
-      // Jika ada kolom Bulan, beri label Total, kalau tidak cukup push totalRow
-      if (data[0] && "Bulan" in data[0]) {
-        sheetData.push({ Bulan: "Total", ...totalRow });
-      } else {
-        sheetData.push(totalRow);
+      // hitung total kolom numerik
+      totalFields.forEach((key) => {
+        totalRow[key] = data.reduce(
+          (sum, row) => sum + (Number(row[key]) || 0),
+          0
+        );
+      });
+
+      // kolom label prioritas
+      const labelKeys = ["Bulan", "Uraian", "Fasilitas"];
+      const labelKey = labelKeys.find((key) => key in data[0]);
+
+      if (labelKey) {
+        totalRow[labelKey] = "Total";
       }
+
+      sheetData.push(totalRow);
     }
 
     const ws = XLSX.utils.json_to_sheet(sheetData);

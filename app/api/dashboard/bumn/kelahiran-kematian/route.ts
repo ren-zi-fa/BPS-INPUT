@@ -3,21 +3,18 @@ import { prisma } from "@/lib/db";
 
 export async function GET() {
   try {
-    const data = await prisma.fasilitas.findMany({
+    const data = await prisma.kelahiranKematian.findMany({
       select: {
         id: true,
-        fasilitas: true,
-        dua_ribu_20: true,
-        dua_ribu_21: true,
-        dua_ribu_22: true,
-        dua_ribu_23: true,
-        dua_ribu_24: true,
+        bulan: true,
+        bersalin: true,
+        keguguran: true,
       },
     });
 
     return NextResponse.json({ data });
   } catch (error) {
-    console.error("Error fetching Fasilitas:", error);
+    console.error("Error fetching kelahiran kematian:", error);
     return NextResponse.json(
       { message: "Terjadi kesalahan saat mengambil data" },
       { status: 500 }
