@@ -101,42 +101,25 @@ model LanjutanKelahiranKematian {
   @@map("ibnu_sina_lanjutan_kelahiran_kematian")
 }
 
-// sheet kecamatan
+/* kecamatan form*/
 
 model Kecamatan {
-  id   Int    @id @default(autoincrement())
-  nama String @unique
-
-  dataInformasi        InformasiKecamatan?
-  dataJumlah        JumlahJorongNagariKecamatan?
-}
-
-
-model InformasiKecamatan {
   id Int @id @default(autoincrement())
 
-  kecamatanId Int @unique
-  kecamatan   Kecamatan @relation(fields: [kecamatanId], references: [id])
+  kecamatan String
 
-  luas_km2 String
-  ketinggian_dari_permukaan_laut String
-  batas_utara String
+  luas_kecamatan Decimal @db.Decimal(8, 2) 
+  batas_utara  String
   batas_selatan String
-  batas_barat String
-  batas_timur String
+  batas_barat  String
+  batas_timur  String
+  ketinggian_dari_permukaan_laut  String
+
+  jumlah_nagari Int
+  jumlah_jorong Int
+  nama_nagari String[]
+  nama_jorong String[]
+
+  @@unique([kecamatan])
+  @@map("kecamatan")
 }
-
-
-model JumlahJorongNagariKecamatan {
-  id Int @id @default(autoincrement())
-
-  kecamatanId Int @unique
-  kecamatan   Kecamatan @relation(fields: [kecamatanId], references: [id])
-
-  jumlah_jorong String
-  jumlah_nagari String
-  
-}
-
-
-// akhir kecamatan
