@@ -7,7 +7,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { FieldValues, UseFormReturn, Path } from "react-hook-form";
+import {
+  FieldValues,
+  UseFormReturn,
+  Path,
+} from "react-hook-form";
 type FieldProps<T extends FieldValues = any> = {
   form: UseFormReturn<T>;
   name: Path<T>;
@@ -36,4 +40,28 @@ export const InputNumericField = <T extends FieldValues>({
     )}
   />
 );
-
+export const InputTextField = <T extends FieldValues>({
+  form,
+  label,
+  name,
+}: FieldProps<T>) => {
+  return (
+    <FormField
+      control={form.control}
+      name={name as Path<T>}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            <Input
+              type="text"
+              value={field.value}
+              onChange={(e) => field.onChange(e.target.value)}
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  );
+};
