@@ -40,11 +40,11 @@ export default function BUMNdanSwastaPage() {
           <h1 className="my-4">Sheet :</h1>
           <div className="flex ">
             <FileIconLink
-              href="/bumn-dan-swasta/bpjs-kecamatan-stats"
+              href="/bumn-dan-swasta/bpjs-kecamatan"
               label="bpjs-kecamatan"
             />
             <FileIconLink
-              href="/bumn-dan-swasta/bpjs-kelompok-kecamatan-stats"
+              href="/bumn-dan-swasta/bpjs-kelompok-kecamatan"
               label="bpjs-kelompok-kecamatan"
             />
           </div>

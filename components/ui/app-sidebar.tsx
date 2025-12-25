@@ -82,7 +82,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconBrandGoogleAnalytics className="!size-5" />
-                <span className="text-base font-semibold">DATA APPS</span>
+                <span className="text-base font-semibold">DDA</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>

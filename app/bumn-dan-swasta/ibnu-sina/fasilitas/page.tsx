@@ -13,7 +13,7 @@ export default function Page() {
     data: fasilitasSubmitted,
     loading,
     refetch,
-  } = useDataSubmitted("/api/bumn/ibnu-sina/fasilitas-ibnu-sina");
+  } = useDataSubmitted("/apii/bumn-swasta/bnu-sina/fasilitas-ibnu-sina");
   const [form, setForm] = useState({
     dua_ribu_20: "",
     dua_ribu_21: "",
@@ -28,7 +28,7 @@ export default function Page() {
   };
 
   const handleSubmit = async () => {
-    await fetch("/api/bumn/ibnu-sina/fasilitas-ibnu-sina", {
+    await fetch("/api/bumn-swasta/ibnu-sina/fasilitas-ibnu-sina", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -18,10 +18,10 @@ datasource db {
 model BpjsKecamatan {
   id          Int     @id @default(autoincrement())
   kecamatan   String
-  kelasI      Int
-  kelasII     Int
-  kelasIII    Int
-  jumlah Int
+  kelasI      Float
+  kelasII     Float
+  kelasIII    Float
+  jumlah Float
 
   @@unique([kecamatan])
   @@map("bpjs_kecamatan")
@@ -29,51 +29,51 @@ model BpjsKecamatan {
 model BpjsKelompokKecamatan {
   id          Int     @id @default(autoincrement())
   kecamatan   String
-  pbi         Int
-  non_pbi     Int
-  jumlah      Int
+  pbi         Float
+  non_pbi     Float
+  jumlah      Float
   @@unique([kecamatan])
   @@map("bpjs_kelompok_kecamatan")
 }
 model IbnuSinaRawatJalan {
   id             Int     @id @default(autoincrement())
   bulan          String
-  bedah          Int
-  kesehatan_anak Int
-  poli_kebidanan Int
-  gigi           Int
-  umum           Int
+  bedah          Float
+  kesehatan_anak Float
+  poli_kebidanan Float
+  gigi           Float
+  umum           Float
   @@unique([bulan])
   @@map("ibnu_sina_rawat_jalan")
 }
 model LanjutanIbnuSinaRawatJalan {
   id               Int     @id @default(autoincrement())
   bulan            String
-  penyakit_dalam   Int
-  jiwa             Int
-  tht              Int
-  mata             Int
-  neurologi        Int
-  fisioterapi      Int
+  penyakit_dalam   Float
+  jiwa             Float
+  tht              Float
+  mata             Float
+  neurologi        Float
+  fisioterapi      Float
   @@unique([bulan])
   @@map("lanjutan_ibnu_sina_rawat_jalan")
 }
 model IbnuSinaRawatInap {
   id               Int     @id @default(autoincrement())
   uraian           String
-  jumlah_pasien    Int
-  hari_rawat       Int
+  jumlah_pasien    Float
+  hari_rawat       Float
   @@unique([uraian])
   @@map("ibnu_sina_rawat_inap")
 }
 model Fasilitas {
   id           Int     @id @default(autoincrement())
   fasilitas    String
-  dua_ribu_20  Int
-  dua_ribu_21  Int
-  dua_ribu_22  Int
-  dua_ribu_23  Int
-  dua_ribu_24  Int
+  dua_ribu_20  Float
+  dua_ribu_21  Float
+  dua_ribu_22  Float
+  dua_ribu_23  Float
+  dua_ribu_24  Float
 
   @@unique([fasilitas])
   @@map("ibnu_sina_fasilitas")
@@ -81,8 +81,8 @@ model Fasilitas {
 model KelahiranKematian {
   id           Int     @id @default(autoincrement())
   bulan    String
-  bersalin  Int
-  keguguran  Int
+  bersalin  Float
+  keguguran  Float
 
   @@unique([bulan])
   @@map("ibnu_sina_kelahiran_kematian")
@@ -91,11 +91,11 @@ model LanjutanKelahiranKematian {
   id Int @id @default(autoincrement())
   bulan String
 
-  hidup_laki_laki Int
-  hidup_perempuan Int
+  hidup_laki_laki Float
+  hidup_perempuan Float
 
-  mati_laki_laki Int
-  mati_perempuan Int
+  mati_laki_laki Float
+  mati_perempuan Float
 
   @@unique([bulan])
   @@map("ibnu_sina_lanjutan_kelahiran_kematian")
@@ -122,10 +122,15 @@ model JumlahNagariJorong {
   id Int @id @default(autoincrement())
 
   kecamatan String
-  jumlah_nagari Int
-  jumlah_jorong Int
+  jumlah_nagari Float
+  jumlah_jorong Float
 
   @@unique([kecamatan])
   @@map("jumlah_nagari_jorong")
+}
+
+model NamaKecamatan {
+  id    Int    @id
+  label String
 }
 

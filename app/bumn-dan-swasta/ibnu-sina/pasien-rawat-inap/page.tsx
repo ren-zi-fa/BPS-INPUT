@@ -13,7 +13,7 @@ export default function Page() {
     data: UraianSubmitted,
     loading,
     refetch,
-  } = useDataSubmitted("/api/bumn/ibnu-sina/rawat-inap");
+  } = useDataSubmitted("/api/bumn-swasta/ibnu-sina/rawat-inap");
   const [form, setForm] = useState({
     uraian: "",
     jumlah_pasien: "",
@@ -25,7 +25,7 @@ export default function Page() {
   };
 
   const handleSubmit = async () => {
-    await fetch("/api/bumn/ibnu-sina/rawat-inap", {
+    await fetch("/api/bumn-swasta/ibnu-sina/rawat-inap", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

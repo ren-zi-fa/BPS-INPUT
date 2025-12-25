@@ -33,18 +33,18 @@ export default function Swasta() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/api/dashboard/bumn/ibnu-sina-rawat-jalan").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/ibnu-sina-rawat-jalan").then((res) =>
         res.json()
       ),
-      fetch("/api/dashboard/bumn/lanjutan-ibnu-sina-rawat-jalan").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/lanjutan-ibnu-sina-rawat-jalan").then((res) =>
         res.json()
       ),
-      fetch("/api/dashboard/bumn/ibnu-sina-rawat-inap").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/ibnu-sina-rawat-inap").then((res) =>
         res.json()
       ),
-      fetch("/api/dashboard/bumn/fasilitas").then((res) => res.json()),
-      fetch("/api/dashboard/bumn/kelahiran-kematian").then((res) => res.json()),
-      fetch("/api/dashboard/bumn/lanjutan-kelahiran-kematian").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/fasilitas").then((res) => res.json()),
+      fetch("/api/dashboard/bumn-swasta/kelahiran-kematian").then((res) => res.json()),
+      fetch("/api/dashboard/bumn-swasta/lanjutan-kelahiran-kematian").then((res) =>
         res.json()
       ),
     ])

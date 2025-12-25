@@ -11,7 +11,7 @@ export default function Form2() {
     data: bulanSubmitted,
     loading,
     refetch,
-  } = useDataSubmitted("/api/bumn/ibnu-sina/lanjutan-ibnu-sina-rawat-jalan");
+  } = useDataSubmitted("/api/bumn-swasta/ibnu-sina/lanjutan-ibnu-sina-rawat-jalan");
 
   const [form2, setForm2] = useState({
     bulan2: "",
@@ -28,7 +28,7 @@ export default function Form2() {
   };
 
   const handleSubmit2 = async () => {
-    await fetch("/api/bumn/ibnu-sina/lanjutan-ibnu-sina-rawat-jalan", {
+    await fetch("/api/bumn-swasta/ibnu-sina/lanjutan-ibnu-sina-rawat-jalan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

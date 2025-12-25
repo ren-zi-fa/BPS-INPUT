@@ -21,10 +21,10 @@ export default function BUMN() {
 
   useEffect(() => {
     Promise.all([
-      fetch("/api/dashboard/bumn/jumlah-peserta-bpjs-kecamatan").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/jumlah-peserta-bpjs-kecamatan").then((res) =>
         res.json()
       ),
-      fetch("/api/dashboard/bumn/jumlah-peserta-bpjs-kelompok").then((res) =>
+      fetch("/api/dashboard/bumn-swasta/jumlah-peserta-bpjs-kelompok").then((res) =>
         res.json()
       ),
     ])

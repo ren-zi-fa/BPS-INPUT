@@ -1,6 +1,5 @@
 "use client";
 
-import ExampleForm from "@/components/common/ExampleForm";
 import { kecamatan as data_kec } from "@/constant/menu";
 import { useParams, useSearchParams } from "next/navigation";
 
@@ -14,9 +13,6 @@ export default function InputNagari() {
   return (
     <div className="flex flex-col items-center justify-center mt-10">
       <p>Kecamatan: {kecamatan?.label}</p>
-      <ExampleForm
-        title={params.nagari ? decodeURIComponent(params.nagari) : ""}
-      />
     </div>
   );
 }
