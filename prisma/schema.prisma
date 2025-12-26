@@ -14,6 +14,12 @@ datasource db {
   provider = "postgresql"
 }
 
+model NamaKecamatan {
+  id    Int    @id
+  label String
+
+  @@map("NamaKecamatan")
+}
 
 model BpjsKecamatan {
   id          Int     @id @default(autoincrement())
@@ -102,31 +108,35 @@ model LanjutanKelahiranKematian {
 }
 
 /* kecamatan form*/
-
 model InfoKecamatan {
-  id Int @id @default(autoincrement())
-
-  kecamatan String
+  id        Int @id @default(autoincrement())
+  kecamatan String @unique
   nama_camat String
   luas_kecamatan String
-  batas_utara  String
+  batas_utara String
   batas_selatan String
-  batas_barat  String
-  batas_timur  String
+  batas_barat String
+  batas_timur String
   ketinggian_dari_permukaan_laut String
 
-  kepalaNagari KepalaNagari?
+  nagari  Nagari[]
+  jorong  Jorong[]
 
-  @@unique([kecamatan])
   @@map("info_kecamatan")
 }
 
-model KepalaNagari {
+model Nagari {
   id Int @id @default(autoincrement())
-  nagari Json
-  kecamatanId Int @unique
+  nama String
+
+  kecamatanId Int
   kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
 }
 
+model Jorong {
+  id Int @id @default(autoincrement())
+  nama String
 
-
+  kecamatanId Int
+  kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+}

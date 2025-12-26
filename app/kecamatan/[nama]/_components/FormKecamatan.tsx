@@ -17,13 +17,12 @@ interface Iprops {
   nama_kec: string;
 }
 
-const URL = "/api/";
+const URL = "/api/kecamatan";
 export default function FormKecamatan({ nama_kec }: Iprops) {
   console.log(nama_kec);
   const form = useForm<KecamatanForm>({
     resolver: zodResolver(KecamatanSchema),
     defaultValues: {
-      nama_kecamatan: "",
       luas_kecamatan: "",
       ketinggian_permukaan_laut: "",
       batas_kec_barat: "",
@@ -41,9 +40,7 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
   useFormPersistSession(form, `formKecamatan ${nama_kec}`);
 
   const onSubmit = async (data: KecamatanForm) => {
-    alert(JSON.stringify(data));
-
-    await fetch(URL, {
+    await fetch(`${URL}/${nama_kec}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

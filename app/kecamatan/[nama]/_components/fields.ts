@@ -1,10 +1,6 @@
 /* nama dan label field*/
 export const fieldInformasiKecamatan = [
   {
-    name: "nama_kecamatan",
-    label: "Nama Kecamatan",
-  },
-  {
     name: "nama_camat",
     label: "Nama Camat",
   },

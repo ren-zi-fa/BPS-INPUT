@@ -90,7 +90,7 @@ const JorongSchema = z.object({
   kepala_jorong: z.string().min(1, "wajib diisi"),
 });
 export const KecamatanSchema = z.object({
-  nama_kecamatan: z.string().min(11, "wajib diisi"),
+ 
   nama_camat: z.string().min(1, "wajib diisi"),
   luas_kecamatan: z.string().min(1, "wajib diisi"),
   batas_kec_utara: z.string().min(1, "wajib diisi"),
