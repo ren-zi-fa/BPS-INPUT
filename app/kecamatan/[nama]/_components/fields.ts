@@ -1,3 +1,4 @@
+/* nama dan label field*/
 export const fieldInformasiKecamatan = [
   {
     name: "nama_kecamatan",
@@ -44,4 +45,3 @@ export const JmlhnagariFields = [
     label: "Jumlah Jorong",
   },
 ] as const;
-

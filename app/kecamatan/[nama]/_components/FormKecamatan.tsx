@@ -7,17 +7,9 @@ import { Button } from "@/components/ui/button";
 import { useFormPersistSession } from "@/helper/sessionField";
 import { KecamatanForm, KecamatanSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { fieldInformasiKecamatan, JmlhnagariFields } from "./fields";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import NagariField from "./NagariField";
 import JorongField from "./JorongField";
 

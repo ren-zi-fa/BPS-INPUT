@@ -82,12 +82,12 @@ export type LanjutanKelahiranKematianForm = z.infer<
 >;
 
 const NagariSchema = z.object({
-  nama_nagari: z.string().min(1),
-  kepala_nagari: z.string().min(1),
+  nama_nagari: z.string().min(1, "wajib diisi"),
+  kepala_nagari: z.string().min(1, "wajib diisi"),
 });
 const JorongSchema = z.object({
-  nama_jorong: z.string().min(1),
-  kepala_jorong: z.string().min(1),
+  nama_jorong: z.string().min(1, "wajib diisi"),
+  kepala_jorong: z.string().min(1, "wajib diisi"),
 });
 export const KecamatanSchema = z.object({
   nama_kecamatan: z.string().min(11, "wajib diisi"),

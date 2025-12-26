@@ -10,6 +10,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { wilayah } from "@/constant/data";
+import { useState } from "react";
 import { FieldValues, useFieldArray, UseFormReturn } from "react-hook-form";
 
 interface FieldProps<T extends FieldValues = any> {
@@ -21,6 +23,15 @@ export default function NagariField({ nama_kec, form }: FieldProps) {
     control: form.control,
     name: "nagari",
   });
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const kecamatanTerpilih = nama_kec.toLocaleUpperCase();
+
+  const nagariOptions =
+    wilayah
+      .find((w) => w.kecamatan === kecamatanTerpilih)
+      ?.nagari.map((n) => n.nama) ?? [];
   return (
     <>
       <section>
@@ -33,18 +44,58 @@ export default function NagariField({ nama_kec, form }: FieldProps) {
               <FormField
                 control={form.control}
                 name={`nagari.${index}.nama_nagari`}
-                render={({ field }) => (
-                  <>
-                    <h1>{index + 1} </h1>
-                    <FormItem className="border-t pt-2">
-                      <FormLabel> Nama Nagari</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </>
-                )}
+                render={({ field }) => {
+                  const filtered = nagariOptions.filter((item) =>
+                    item
+                      .toLowerCase()
+                      .includes((field.value ?? "").toLowerCase())
+                  );
+                  console.log(filtered);
+
+                  return (
+                    <>
+                      .
+                      <h1 className="font-bold text-orange-600">
+                        {index + 1}{" "}
+                      </h1>
+                      <FormItem className="relative border-t pt-2 ">
+                        <FormLabel>Nama Nagari</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              setOpenIndex(index);
+                            }}
+                            onFocus={() => setOpenIndex(index)}
+                            onBlur={() =>
+                              setTimeout(() => setOpenIndex(null), 100)
+                            }
+                          />
+                        </FormControl>
+
+                        {openIndex === index && filtered.length > 0 && (
+                          <ul className="absolute left-0 right-0 top-full mt-1 z-50 rounded-md border bg-white shadow-md max-h-40 overflow-y-auto">
+                            {filtered.map((item) => (
+                              <li
+                                key={item}
+                                onMouseDown={() => {
+                                  field.onChange(item);
+                                  setOpenIndex(null);
+                                }}
+                                className="cursor-pointer px-3 py-2 hover:bg-gray-100"
+                              >
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        <FormMessage />
+                      </FormItem>
+                    </>
+                  );
+                }}
               />
 
               <FormField
