@@ -24,7 +24,7 @@ export default function BUMNdanSwastaPage() {
       <ButtonBack linkUrl="/" />
       <header className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Data BUMN dan Swasta
+          FORM BUMN dan Swasta
         </h1>
         <p className="text-sm text-muted-foreground">
           Input dan pengelolaan data BPJS serta pasien rawat jalan

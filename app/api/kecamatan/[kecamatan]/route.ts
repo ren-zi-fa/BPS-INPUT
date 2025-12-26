@@ -1,4 +1,3 @@
-import { kecamatan } from "@/constant/menu";
 import { prisma } from "@/lib/db";
 import { KecamatanSchema } from "@/schema";
 import { NextRequest, NextResponse } from "next/server";
@@ -26,6 +25,11 @@ export async function POST(
 
     const {
       batas_kec_barat,
+      gizi_buruk,
+      pasar,
+      sarana_kesehatan,
+      sarana_pendidikan,
+      sarana_peribadatan,
       batas_kec_selatan,
       batas_kec_timur,
       batas_kec_utara,
@@ -48,16 +52,20 @@ export async function POST(
         batas_barat: batas_kec_barat,
         batas_timur: batas_kec_timur,
         ketinggian_dari_permukaan_laut: ketinggian_permukaan_laut,
+        jmlh_jorong: jmlh_jorong,
+        jmlh_nagari: jmlh_nagari,
 
         nagari: {
           create: nagari.map((n) => ({
             nama: n.nama_nagari,
+            kepala_nagari: n.kepala_nagari,
           })),
         },
 
         jorong: {
           create: jorong.map((j) => ({
             nama: j.nama_jorong,
+            kepala_jorong: j.kepala_jorong,
           })),
         },
       },

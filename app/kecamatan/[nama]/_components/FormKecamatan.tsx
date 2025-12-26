@@ -9,7 +9,11 @@ import { KecamatanForm, KecamatanSchema } from "@/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
-import { fieldInformasiKecamatan, JmlhnagariFields } from "./fields";
+import {
+  fieldInformasiKecamatan,
+  JmlhnagariFields,
+  saranaKesehatanFields,
+} from "./fields";
 import NagariField from "./NagariField";
 import JorongField from "./JorongField";
 
@@ -19,7 +23,6 @@ interface Iprops {
 
 const URL = "/api/kecamatan";
 export default function FormKecamatan({ nama_kec }: Iprops) {
-  console.log(nama_kec);
   const form = useForm<KecamatanForm>({
     resolver: zodResolver(KecamatanSchema),
     defaultValues: {
@@ -34,12 +37,45 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
       nama_camat: "",
       nagari: [{ kepala_nagari: "", nama_nagari: "" }],
       jorong: [{ kepala_jorong: "", nama_jorong: "" }],
+
+      sarana_peribadatan: {
+        jumlahMesjid: 0,
+        jumlahGerejaKatolik: 0,
+        jumlahGerejaProtestan: 0,
+        jumlahMushala: 0,
+        jumlahWihara: 0,
+      },
+      gizi_buruk: { jumlah_gizi_buruk: 0 },
+      sarana_kesehatan: {
+        jumlahApotik: 0,
+        jumlahPoliklinikBalaiKesehatan: 0,
+        jumlahPolindes: 0,
+        jumlahPosyandu: 0,
+        jumlahPuskesmasPembantu: 0,
+        jumlahPuskesmasRawatInap: 0,
+        jumlahPuskesmasTanpaRawatInap: 0,
+        jumlahRumahSakit: 0,
+        jumlahRumahSakitBersalin: 0,
+      },
+      sarana_pendidikan: {
+        jumlahMAN: 0,
+        jumlahMI: 0,
+        jumlahMTsn: 0,
+        jumlahRA: 0,
+        jumlahSD: 0,
+        jumlahSMA: 0,
+        jumlahSMK: 0,
+        jumlahSMP: 0,
+        jumlahTK: 0,
+      },
+      pasar: [{ nama: "", hari: "" }],
     },
   });
 
   useFormPersistSession(form, `formKecamatan ${nama_kec}`);
 
   const onSubmit = async (data: KecamatanForm) => {
+    alert(data);
     await fetch(`${URL}/${nama_kec}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -107,6 +143,15 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
                 <NagariField form={form} nama_kec={nama_kec} />
                 {/* jorong */}
                 <JorongField form={form} nama_kec={nama_kec} />
+                {/* Sarana kesehatan  */}
+                {saranaKesehatanFields.map((item) => (
+                  <InputNumericField
+                    key={item.name}
+                    name={`sarana_kesehatan.${item.name}`}
+                    label={item.label}
+                    form={form}
+                  />
+                ))}
 
                 <Button type="submit" className="w-full">
                   Simpan Data

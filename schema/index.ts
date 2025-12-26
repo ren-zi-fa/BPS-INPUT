@@ -89,8 +89,48 @@ const JorongSchema = z.object({
   nama_jorong: z.string().min(1, "wajib diisi"),
   kepala_jorong: z.string().min(1, "wajib diisi"),
 });
+
+const SaranaPendidikanSchema = z.object({
+  jumlahTK: z.int(),
+  jumlahRA: z.int(),
+  jumlahSD: z.int(),
+  jumlahMI: z.int(),
+  jumlahSMP: z.int(),
+  jumlahMTsn: z.int(),
+  jumlahSMA: z.int(),
+  jumlahSMK: z.int(),
+  jumlahMAN: z.int(),
+});
+
+const SaranaPeribadatanSchema = z.object({
+  jumlahMesjid: z.int(),
+  jumlahMushala: z.int(),
+  jumlahGerejaKatolik: z.int(),
+  jumlahGerejaProtestan: z.int(),
+  jumlahWihara: z.int(),
+});
+
+const SaranaKesehatanSchema = z.object({
+  jumlahRumahSakit: z.int(),
+  jumlahRumahSakitBersalin: z.int(),
+  jumlahPoliklinikBalaiKesehatan: z.int(),
+  jumlahPuskesmasRawatInap: z.int(),
+  jumlahPuskesmasTanpaRawatInap: z.int(),
+  jumlahPuskesmasPembantu: z.int(),
+  jumlahPolindes: z.int(),
+  jumlahPosyandu: z.int(),
+  jumlahApotik: z.int(),
+});
+
+const GiziBurukSchema = z.object({
+  jumlah_gizi_buruk: z.int(),
+});
+const PasarSchema = z.object({
+  nama: z.string(),
+  hari: z.string(),
+});
+
 export const KecamatanSchema = z.object({
- 
   nama_camat: z.string().min(1, "wajib diisi"),
   luas_kecamatan: z.string().min(1, "wajib diisi"),
   batas_kec_utara: z.string().min(1, "wajib diisi"),
@@ -98,10 +138,16 @@ export const KecamatanSchema = z.object({
   batas_kec_barat: z.string().min(1, "wajib diisi"),
   batas_kec_timur: z.string().min(1, "wajib diisi"),
   ketinggian_permukaan_laut: z.string().min(1, "wajib diisi"),
-  jmlh_nagari: z.number().min(1),
-  jmlh_jorong: z.number().min(1),
+  jmlh_nagari: z.number().min(1, "Minimal satu nagari"),
+  jmlh_jorong: z.number().min(1, "Minimal satu jorong"),
   nagari: z.array(NagariSchema).min(1, "Minimal satu nagari"),
-  jorong: z.array(JorongSchema).min(1, "Minimal satu nagari"),
+  jorong: z.array(JorongSchema).min(1, "Minimal satu jorong"),
+
+  sarana_peribadatan: SaranaPeribadatanSchema,
+  sarana_kesehatan: SaranaKesehatanSchema,
+  sarana_pendidikan: SaranaPendidikanSchema,
+  gizi_buruk: GiziBurukSchema,
+  pasar: z.array(PasarSchema),
 });
 
 export type KecamatanForm = z.infer<typeof KecamatanSchema>;

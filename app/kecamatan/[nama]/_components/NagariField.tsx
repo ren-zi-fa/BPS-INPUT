@@ -50,8 +50,7 @@ export default function NagariField({ nama_kec, form }: FieldProps) {
                       .toLowerCase()
                       .includes((field.value ?? "").toLowerCase())
                   );
-                  console.log(filtered);
-
+            
                   return (
                     <>
                       .

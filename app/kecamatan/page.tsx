@@ -1,20 +1,21 @@
 import ButtonBack from "@/components/common/boilerplate/ButtonBack";
 import { FileIconLink } from "@/components/common/FileIconLink";
+import { Input } from "@/components/ui/input";
 import { kecamatan } from "@/constant/menu";
+import { Metadata } from "next";
+import KecamatanList from "./[nama]/_components/KecamatanList";
+
+export const metadata: Metadata = {
+  title: "Kecamatan",
+  description: "Form Input Kecamatan",
+};
 
 export default function Page() {
   return (
-    <div className="min-h-screen w-xl mx-auto my-10">
-      <ButtonBack linkUrl="/"/>
-      <div className="grid grid-cols-4">
-        {kecamatan.map((data) => (
-          <FileIconLink
-            key={data.label}
-            href={`/kecamatan/${data.label.toLocaleLowerCase()}`}
-            label={data.label}
-          />
-        ))}
-      </div>
+    <div className="min-h-screen w-xl mx-auto flex flex-col gap-4 justify-center">
+      <h1 className="uppercase text-3xl font-bold text-center mb-5">Form Kecamatan </h1>
+      <ButtonBack linkUrl="/" />
+      <KecamatanList data={kecamatan} />
     </div>
   );
 }

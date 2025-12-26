@@ -113,21 +113,33 @@ model InfoKecamatan {
   kecamatan String @unique
   nama_camat String
   luas_kecamatan String
+
   batas_utara String
   batas_selatan String
   batas_barat String
   batas_timur String
   ketinggian_dari_permukaan_laut String
 
+  jmlh_nagari Int
+  jmlh_jorong Int
+
   nagari  Nagari[]
   jorong  Jorong[]
+
+  saranaPendidikan SaranaPendidikan[]
+  saranaKesehatan SaranaKesehatan[]
+  saranaPeribadatan SaranaPeribadatan[]
+  giziBuruk GiziBuruk[]
+  pasar Pasar[]
 
   @@map("info_kecamatan")
 }
 
+
 model Nagari {
   id Int @id @default(autoincrement())
   nama String
+  kepala_nagari String
 
   kecamatanId Int
   kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
@@ -136,7 +148,85 @@ model Nagari {
 model Jorong {
   id Int @id @default(autoincrement())
   nama String
+  kepala_jorong String
 
   kecamatanId Int
   kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+}
+
+model SaranaPendidikan {
+  id Int @id @default(autoincrement())
+
+  jumlahTK  Int
+  jumlahRA  Int
+  jumlahSD  Int
+  jumlahMI  Int
+  jumlahSMP Int
+  jumlahMTsn  Int
+  jumlahSMA  Int
+  jumlahSMK  Int
+  jumlahMAN  Int
+  kecamatanId Int
+  kecamatan   InfoKecamatan  @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+
+  @@map("sarana_pendidikan")
+}
+
+
+model SaranaPeribadatan {
+  id Int @id @default(autoincrement())
+
+  jumlahMesjid Int
+  jumlahMushala Int
+  jumlahGerejaKatolik Int
+  jumlahGerejaProtestan Int
+  jumlahWihara Int
+  
+  kecamatanId Int
+  kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+
+  @@map("sarana_peribadatan")
+}
+model SaranaKesehatan {
+  id Int @id @default(autoincrement())
+
+  jumlahRumahSakit Int
+  jumlahRumahSakitBersalin Int
+  jumlahPoliklinikBalaiKesehatan Int
+  jumlahPuskesmasRawatInap Int
+  jumlahPuskesmasTanpaRawatInap Int
+  jumlahPuskesmasPembantu Int
+  jumlahPolindes Int
+  jumlahPosyandu Int
+  jumlahApotik Int
+  kecamatanId Int
+
+  kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+
+  @@map("sarana_kesehatan")
+}
+
+
+
+model GiziBuruk {
+  id Int @id @default(autoincrement())
+
+  jumlah_gizi_buruk Int
+
+  kecamatanId Int
+  kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+
+  @@map("gizi_buruk")
+}
+
+
+model Pasar {
+  id Int @id @default(autoincrement())
+  nama String
+  hari String
+
+  kecamatanId Int
+  kecamatan InfoKecamatan @relation(fields: [kecamatanId], references: [id], onDelete: Cascade)
+
+  @@map("pasar")
 }
