@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+
+
 import { prisma } from "@/lib/db";
 import { FasilitasIbnuSinaSchema } from "@/schema";
 import { NextRequest, NextResponse } from "next/server";
@@ -11,7 +14,12 @@ export async function GET() {
       message: "data fasilitas",
       data: data,
     });
-  } catch (error) {}
+  } catch (error) {
+    return NextResponse.json(
+      { message: "Terjadi kesalahan server" },
+      { status: 500 }
+    );
+  }
 }
 export async function POST(req: NextRequest) {
   try {

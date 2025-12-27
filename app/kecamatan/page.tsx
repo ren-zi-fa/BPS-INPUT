@@ -1,6 +1,4 @@
 import ButtonBack from "@/components/common/boilerplate/ButtonBack";
-import { FileIconLink } from "@/components/common/FileIconLink";
-import { Input } from "@/components/ui/input";
 import { kecamatan } from "@/constant/menu";
 import { Metadata } from "next";
 import KecamatanList from "./[nama]/_components/KecamatanList";

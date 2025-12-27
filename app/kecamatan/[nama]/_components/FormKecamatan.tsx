@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any*/
+
 "use client";
 import {
   InputNumericField,
@@ -107,14 +109,13 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
         throw new Error(result.message || "Terjadi kesalahan server");
       }
 
-      setOpen(false);
-
       toast.success(result.message || "Berhasil", {
         className: "bg-green-600 text-white",
         position: "top-center",
       });
 
       form.reset();
+      setOpen(false);
     } catch (err: any) {
       setOpen(false);
       toast.error(err.message || "Gagal mengirim data", {
@@ -150,10 +151,7 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
         >
           <div className="">
             <FormProvider {...form}>
-              <form
-                className="mx-auto space-y-6 bg-white p-6 rounded-xl shadow-sm"
-                onSubmit={form.handleSubmit(onSubmit)}
-              >
+              <form className="mx-auto space-y-6 bg-white p-6 rounded-xl shadow-sm">
                 <section>
                   <h2 className="text-lg font-medium text-slate-700 border-b pb-2">
                     Informasi Umum Kecamatan
@@ -265,7 +263,7 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>
-                        Konfirmasi Penyimpanan
+                        Konfirmasi Pengiriman
                       </AlertDialogTitle>
                       <AlertDialogDescription>
                         Data kecamatan <b>{nama_kec}</b> tidak bisa diinput dua
@@ -282,7 +280,7 @@ export default function FormKecamatan({ nama_kec }: Iprops) {
                         disabled={loading}
                         onClick={form.handleSubmit(onSubmit)}
                       >
-                        {loading ? "Menyimpan..." : "Ya, Simpan"}
+                        {loading ? "Process..." : "Ya, Submit"}
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>

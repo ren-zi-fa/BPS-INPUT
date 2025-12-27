@@ -104,4 +104,6 @@ export {
   dataGunungTuleh,
   dataKotoBalingka,
   dataTalamau,
+  dataSungaiBeremas,
+  dataLuhakNanDuo,
 };
